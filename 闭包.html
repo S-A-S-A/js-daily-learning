@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+        text-decoration: none;
+    }
+    li{
+        list-style: none;
+    }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+        <li>a</li>
+    </ul>
+<script>
+//立即执行函数底层原理： 只有表达式才可以执行  无论哪种形式，都是转换为表达式执行。无法调用，起名没用。 
+
+
+
+//执行期上下文：函数执行时产生，执行完销毁。执行期上下文定义了函数执行时的环境（能够访问的变量、对象的集合）。
+
+//函数执行时将内部函数返回到了外部，一定会产生闭包。
+//返回出的函数作用域链上挂载了父级函数的执行期上下文AO，
+//当返回函数执行时，会创建自己的执行期上下文，并且挂载到作用域链的最顶端，其次就是父级函数的执行期上下文，依次访问变量。
+
+
+
+
+//闭包经典问题 
+
+
+// 闭包是什么：闭包就是有权访问另一个函数作用域的函数 ----js高级教程。
+
+    // var name = 'xuwie'
+    // var out ;
+    // function inner(){
+    //     var name = 'shasha';
+    //     function insome(){
+    //         console.log(name);
+    //     }
+    //     out = insome;
+    // }
+    // inner();
+    // out();
+
+    // 闭包应用场景之一：setTimeout方法传的第一个函数不能传参
+
+            //  function fuc(parmas){
+            //      return function(){
+            //         console.log(parmas);
+            //      }
+            //  }   
+            //  var f = fuc(1);
+            // setTimeout(f,1000);
+
+// function test(){
+//     var arr = [];
+//     for(var i=0;i<10;i++){
+//         arr[i] = function(){   //虽然在这里进行了函数定义，但是并没有执行
+//             console.log(i)
+//         }
+//     }
+//     return arr;
+// }
+// var newarr = test();
+// for(var j= 0; j<10;j++){
+//     newarr[j]();                 //执行时，所有的i都变成了10
+// }
+//解决问题 立即执行函数
+// function test(){
+//     var arr = [];
+//     for(var i=0;i<10;i++){
+//        (function(j){ 
+//         //立即执行函数执行存储了每次对应的j，每个函数都挂载了对应立即执行函数的执行期上下文（虽然立即执行函数执行完会销毁，但是本质上是找不到其引用，执行期上下文还在）   
+//         arr[j] = function(){
+//             console.log(j)
+//         }
+//        })(i)
+//     }
+//     return arr;
+// }
+// var newarr = test();
+// for(var j= 0; j<10;j++){
+//     newarr[j]();
+// }
+
+//一次执行，返回多个函数时，共用一个执行期上下文
+// function test(){
+//     var food = 'apple';
+//     var obj = {
+//         A:function(){
+//             console.log('i like '+food);
+//         },
+//         B:function(newfood){
+//             food = newfood;
+//             console.log('i hate '+newfood)
+//         }
+//     }
+//     return obj;
+// }
+// var obj = test();
+// obj.A();
+// obj.B('shi');
+// obj.A();
+
+
+//  var list = document.getElementsByTagName('ul')[0];
+//  function test(){
+//      list.addEventListener('click','li',function(){
+//          console.log('hehe')
+//      },false)
+//  }
+//  test();
+
+
+
+</script>
+</body>
+</html>
