@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+     var str = "abc";
+      str+=1;
+      var test=typeof(str);//test="string"
+      if(test.length==6){
+          test.sign="typeof的返回结果可能为string";//new String("string").sign="typeof的返回结果可能为string";
+      }
+      console.log(test.sign);//输出undefined;因为包装类没有接收，所以会自动销毁，此处就没有值了
+    </script>
+</body>
+</html>
