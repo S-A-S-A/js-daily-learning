@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+           //原型可以提取共有属性
+        Car.prototype.height=1400;
+        Car.prototype.lang=4900;
+        Car.prototype.carname="BMW";
+        function Car(color ,owner){
+            this.color=color;
+            this.owner=owner;
+        }
+        var car1=new Car('red','H');
+        var car2=new Car('bule','C');
+    </script>
+</body>
+</html>

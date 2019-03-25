@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //圣杯模式
+    function inherit(Target,Origin){
+        function F() {};
+        F.prototype=Origin.prototype;
+        Target.prototype=new F();   //此处F和Origin的原型对等，new一下F，表示Target间接的拿到了Origin的原型内容,
+                                    //此时Target间接的继承了Origin的属性，并且互相不受改变的影响
+        Target.prototype.constructor=Target;
+        Target.prototype.uber=Origin.prototype;//可写可不写，这一步记录Target最原始的原型是谁
+    }
+    Father.prototype.lastName="deng";
+    function Father(){
+
+    }
+    function  Son() {
+
+    }
+    inherit(Son, Father);
+    var son =new Son();
+    var father =new Father();
+    </script>
+</body>
+</html>
