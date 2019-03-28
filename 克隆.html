@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var obj={
+          name:"abc",
+          age:123,
+          card:['visa','master'],
+          wife:{
+              name:"bcd",
+              son:{
+                  name:"aaa"
+              }
+          }
+        }
+        var obj1={
+
+        }
+        //遍历对象 for(var prop in obj)
+        //1.判断是不是原始值  typeof()看结果是不是object
+        //2.判断是数组还是对象 constructor  toString(常用)  instanceof
+        //3.建立相应的数组或对象
+        //4.递归
+        function deepClone(origin,target){
+            var target=target || {},
+                 toStr=Object.prototype.toString,
+                 arrStr="[object Array]";
+             for(var prop in origin){ 
+                 if(origin.hasOwnProperty(prop)){  //为了避免拿原型链上的属性   
+                     if( typeof(origin[prop]) == 'object' ){
+                         if(toStr.call(origin[prop])==arrStr){
+                             target[prop]=[];
+                         }else{
+                             target[prop]={};
+                         }
+                         deepClone(origin[prop],target[prop]);
+                     }else{
+                         target[prop]=origin[prop];
+                     }
+                 }
+             }
+             return target;
+        }
+    </script>
+</body>
+</html>
