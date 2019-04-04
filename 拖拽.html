@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="width:100px;height:100px;background-color:red;position: absolute;left:0px;top:0px;"></div>
+    <script>
+    var div=document.getElementsByTagName('div')[0];
+    var disX,
+        disY;
+    div.onmousedown=function(e){                 //计算点击时点击位置距离方块左上角的距离
+        var event=e||window.event;
+        disX=event.pageX-parseInt(div.style.left);//pageX表示点击时坐标的横坐标，div.style.left表示拖拽前以方块左上角为原点距离页面左边有多远
+        disY=event.pageY-parseInt(div.style.top);//pageY表示点击时坐标的纵坐标，div.style.top表示拖拽前以方块左上角为原点距离页面上边有多远
+    } 
+    document.onmousemove=function(e){         //计算拖拽后方块左上角距离页面左边以及上边的距离，，用点击时的坐标减去点击位置距离方块左上角的长度即为拖拽后方块左上角距离页面的位置
+        var event=e||window.event;
+        div.style.left=event.pageX-disX+"px";//div.style.left表示方块拖拽后距页面左边的距离
+        div.style.top=event.pageY-disY+"px";//div.style.left表示方块拖拽后距页面上边的距离
+    }
+    document.onmouseup=function(){
+        document.onmousemove=null;
+    }
+    </script>
+</body>
+</html>
