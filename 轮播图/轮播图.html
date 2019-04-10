@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .wrapper {
+            margin: 100px auto 0px;
+            width: 600px;
+            height: 400px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .wrapper .sliderPage {
+            height: 400px;
+            width: 3000px;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .wrapper .sliderPage li {
+            width: 600px;
+            height: 400px;
+            float: left;
+        }
+        .wrapper .sliderPage li img {
+            width: 100%;
+            height: 100%;
+        }
+        .wrapper .btn{
+            position: absolute;
+            top: 50%;
+            margin-top: -25px;
+            width: 50px;
+            height: 50px;
+            color: #fff;
+            background-color: #000;
+            text-align: center;
+            line-height: 40px;
+            opacity: 0.3;
+            cursor: pointer;
+        }
+        .wrapper:hover .btn{
+            opacity: 0.7;
+        }
+        .wrapper .leftBtn{
+          left: 15px;
+        }
+        .wrapper .rightBtn{
+            right: 15px;
+        }
+        .wrapper .sliderIndex{
+            position: absolute;
+            width: 100%;
+            bottom: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .wrapper .sliderIndex span{
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          background-color: #ccc;
+          border-radius: 50%;
+          margin-right: 15px;
+        }
+        .wrapper .sliderIndex .active{
+            background-color: #f40;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <ul class="sliderPage">
+            <li>
+                <img src="./img/热巴1.jpg">
+            </li>
+            <li>
+                <img src="./img/热巴2.jpg">
+            </li>
+            <li>
+                <img src="./img/热巴3.jpg">
+            </li>
+            <li>
+                <img src="./img/热巴4.jpg">
+            </li>
+            <li>
+                <img src="./img/热巴1.jpg">
+            </li>
+        </ul>
+        <div class="btn leftBtn">&lt;</div>
+        <div class="btn rightBtn">&gt;</div>
+        <div class="sliderIndex">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <script src="./move.js"></script>
+    <script>
+            var timer=null;
+            var sliderPage=document.getElementsByClassName('sliderPage')[0];
+            var moveWidth=sliderPage.children[0].offsetWidth;
+            var num=sliderPage.children.length-1;
+            var leftBtn=document.getElementsByClassName('leftBtn')[0];
+            var rightBtn=document.getElementsByClassName('rightBtn')[0];
+            var lock=true;
+            var index =0;
+            var spanarray=document.getElementsByClassName('sliderIndex')[0].getElementsByTagName('span');
+            leftBtn.onclick=function(){
+                automove('right->left');
+            }
+            rightBtn.onclick=function(){
+                automove('left->right');
+            }
+            for(var i=0;i<spanarray.length;i++){
+                (function(myindex){
+                   spanarray[i].onclick=function(){
+                       lock=false;
+                       clearTimeout(timer);
+                       index=myindex;
+                       startmove(sliderPage,{left:-index*moveWidth},function(){
+                           lock=true;
+                           timer=setTimeout(automove,1500);
+                           changeindex(index);
+                       })
+
+                   }                    
+                }(i))
+            }
+            function automove(direction){
+             if(lock){
+                 lock=false;
+                clearTimeout(timer);
+             if(!direction||direction=='left->right'){
+                 index++;
+              startmove(sliderPage,{left:sliderPage.offsetLeft-moveWidth},function(){  //{left:sliderPage.offsetLeft-moveWidth}是一个对象，不是属性
+                  if(sliderPage.offsetLeft==-(num*moveWidth)){
+                    index=0; 
+                    sliderPage.style.left=0+'px';
+                  }
+                  timer = setTimeout(automove,1500);
+                  lock=true;
+                  changeindex(index);
+              });
+             }else if(direction=='right->left'){
+                      if(sliderPage.offsetLeft==0){
+                          index=num;
+                          sliderPage.style.left= -num*moveWidth+'px';
+                      }
+                      index--;
+                      startmove(sliderPage,{left:sliderPage.offsetLeft+moveWidth},function(){
+                        timer = setTimeout(automove,1500);
+                        lock=true;
+                        changeindex(index);
+                      })
+                  }
+             }
+            }
+            function changeindex(_index){
+                for(i=0;i<spanarray.length;i++){
+                    spanarray[i].className='';
+                }
+                spanarray[_index].className='active';
+            }
+            timer = setTimeout(automove,1500);
+    </script>
+</body>
+
+</html>

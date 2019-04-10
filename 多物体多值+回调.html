@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     div{
+         position: absolute;
+         left: 0px;
+         width:100px;
+         height: 100px;
+         background-color: red;
+         opacity: 1;
+
+     }
+     #topdiv{
+         top: 200px;
+
+     }
+     #bottomdiv{
+         top:400px;
+     }
+    </style>
+</head>
+<body>
+    <diV id="topdiv"></diV>
+    <diV id="bottomdiv"></diV>
+    <script>
+        var topdiv=document.getElementById('topdiv');
+        var bottomdiv=document.getElementById('bottomdiv');
+        topdiv.onclick=function(){
+            startmove(this,{width:400,height:400,left:200,top:300,opacity:50},function(){
+               startmove(bottomdiv,{width:400,height:400,left:200,top:300,opacity:50},function(){
+                   alert("over");
+               });
+            })
+        }
+          function getStyle(dom, attr) {
+                if (window.getComputedStyle) {
+                    return window.getComputedStyle(dom, null)[attr];//null表示伪类，，这里为查询计算样式，括号里第二个参数基本上全都写为null；这一句表示返回想要获取的样式的值
+                }else {
+                    return dom.currentStyle[attr];
+                }
+            }
+            function startmove(dom,attrObj,callback){
+                 clearInterval(dom.timer);
+                 var speed=null,icur=null;
+                 dom.timer=setInterval(function(){
+                     var stop=true;
+                    for(var attr in attrObj){
+                        if(attr=='opacity'){
+                         icur=parseFloat(getStyle(dom,attr))*100;
+                     }else{
+                         icur=parseInt(getStyle(dom,attr));
+                     }
+                     speed=(attrObj[attr]-icur)/7;
+                     speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                     if(attr=='opacity'){
+                        dom.style.opacity=(icur+speed)/100;
+                     }else{
+                         dom.style[attr]=icur+speed+'px';
+                     }
+                     if(icur!=attrObj[attr]){      //如果在循环改变属性值的过程中，有某个属性值不等于定的目标点，就不能停
+                         stop=false;
+                     }
+                    }
+                    if(stop){
+                        clearInterval(dom.timer);
+                        typeof(callback)=='function'&&callback();            //如果&&前面的typeof(callback)=='function'存在为真，则执行&&后面的
+                    }
+                 },30);
+                }
+    </script>
+</body>
+</html>

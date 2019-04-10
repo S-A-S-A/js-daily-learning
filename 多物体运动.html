@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            opacity: 1;
+            margin-bottom: 100px;
+            border: 5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+        var timer = null;
+        var divarray = document.getElementsByTagName('div');
+        divarray[0].onclick=function(){
+            startmove(this,'width',400)
+        }
+        divarray[1].onclick=function(){
+            startmove(this,'height',400)
+        }
+        divarray[2].onclick=function(){
+            startmove(this,'borderWidth',20)
+        }
+        divarray[3].onclick=function(){
+            startmove(this,'opacity',50)
+        }
+        function getStyle(dom, attr) {
+                if (window.getComputedStyle) {
+                    return window.getComputedStyle(dom, null)[attr];//null表示伪类，，这里为查询计算样式，括号里第二个参数基本上全都写为null；这一句表示返回想要获取的样式的值
+                }else {
+                    return dom.currentStyle[attr];
+                }
+            }
+            function startmove(dom,attr,target){
+                clearInterval(dom.timer);
+                var speed=null,icur=null;
+                dom.timer=setInterval(function(){
+                     if(attr=='opacity'){
+                         icur=parseFloat(getStyle(dom,attr))*100;
+                     }else{
+                         icur=parseInt(getStyle(dom,attr));
+                     }
+                     speed=(target-icur)/7;
+                     speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                     if(icur==target){
+                         clearInterval(dom.timer);
+                     }
+                     if(attr=='opacity'){
+                         dom.style.opacity=(icur+speed)/100;
+                     }else{
+                         dom.style[attr]=icur+speed+'px';
+                     }
+                },30)
+            }
+        // for (var i = 0; i < divarray.length; i++) {
+        //     divarray[i].onmouseenter = function () {
+        //         startmove(this, 400);
+        //     }
+        //     divarray[i].onmouseleave = function () {
+        //         startmove(this, 100);
+        //         }
+            
+        // }
+        //     function getStyle(dom, attr) {
+        //         if (window.getComputedStyle) {
+        //             return window.getComputedStyle(dom, null)[attr];//null表示伪类，，这里为查询计算样式，括号里第二个参数基本上全都写为null；这一句表示返回想要获取的样式的值
+        //         } else {
+        //             return dom.currentStyle[attr];
+        //         }
+        //     }
+        //     function startmove(dom, target) {
+        //         clearInterval(dom.timer);
+        //         var speed = null, icur = null;
+        //         dom.timer = setInterval(function () {
+        //             icur = parseInt(getStyle(dom, 'width'));
+        //             speed = (target - icur) / 7;
+        //             speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+        //             if (icur == target) {
+        //                 clearInterval(dom.timer);
+        //             } else {
+        //                 dom.style.width = icur + speed + 'px';
+        //             }
+        //         }, 30);
+        //     }
+    </script>
+</body>
+</html>

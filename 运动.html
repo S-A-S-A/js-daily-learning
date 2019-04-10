@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      /* div{
+          width: 100px;
+          height: 100px;
+          background-color: red;
+          position: absolute;
+          left:0px;
+          top: 0;
+      }
+      button{
+          margin-top:150px; 
+      }
+      span{
+          position: absolute;
+          left: 300px;
+          top: 0;
+          width: 1px;
+          height: 100px;
+          background-color: black;
+      } */
+      .wrapper{
+          width: 400px;
+          height: 80px;
+          background-color: aqua;
+          position: absolute;
+          /* left: -400px; */
+          top: 200px;
+      }
+      span{
+          width: 50px;
+          height: 80px;
+          background-color:lightblue;
+          position: absolute;
+          right: -50px;
+          top: 0px;
+      }
+    </style>
+</head>
+<body>
+  <!-- <div></div>
+    <button id='btn'>run</button>
+    <span></span> -->
+    <div class="wrapper">
+          <span></span>
+    </div>
+    <script>
+        var timer=null;
+        var wrapper=document.getElementsByClassName('wrapper')[0];
+        var span=document.getElementsByTagName('span')[0];
+        var body = document.getElementsByTagName('body')[0];
+        wrapper.onmouseenter=function(){
+            console.log('事件执行')
+            // buffer(this,100);
+        }
+        // wrapper.onmouseleave=function(){
+        //      buffer(this,-400);
+        // }
+        // span.addEventListener('mouseenter',function(){
+        //     console.log('span')
+        // },false)
+        span.addEventListener('mouseenter',function(){
+            console.log('span')
+        },false)
+        body.addEventListener('mouseenter',function(){
+            console.log('body')
+        },false)
+
+    //   var div =document.getElementsByTagName('div')[0];
+    //   var btn=document.getElementById('btn');
+      
+    //   btn.onclick=function(){
+    //     // uniformLinearMotion(div,300);
+    //     buffer(div,300);
+    //   }
+      //缓冲运动：物体的速度 距离目标点越近就越小，当到达目标点时，速度减小为0
+        function buffer(dom,target){
+            clearInterval(timer);
+            var speed=null;
+            timer=setInterval (function(){
+                speed=(target-dom.offsetLeft)/9;
+                speed=speed>0? Math.ceil(speed):Math.floor(speed);//速度向上取整/向下取整
+                if(dom.offsetLeft==target){
+                    clearInterval(timer);
+                }else{
+                  dom.style.left=dom.offsetLeft+speed+'px';
+                }
+            },30);
+        }
+      //匀速直线运动
+    //   function uniformLinearMotion(dom,target){  
+    //     clearInterval(timer);
+    //     var speed=target-dom.offsetLeft > 0 ? 7 : -7;
+    //      timer= setInterval(function () {
+    //          if(Math.abs(target-dom.offsetLeft)<Math.abs(speed)){
+    //              clearInterval(timer);
+    //              dom.style.left=target+'px';
+    //          }else{
+    //             dom.style.left=dom.offsetLeft+speed+'px';
+    //           }
+    //       }, 30);
+    //   }
+    </script>
+</body>
+</html>
