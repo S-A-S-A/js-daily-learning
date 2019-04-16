@@ -48,17 +48,27 @@
 
 // 闭包是什么：闭包就是有权访问另一个函数作用域的函数 ----js高级教程。
 
-    // var name = 'xuwie'
-    // var out ;
-    // function inner(){
-    //     var name ='shasha';
-    //     function insome(){
-    //         console.log(name);
-    //     }
-    //     out = insome;
-    // }
-    // inner();
-    // out();
+    var name = 'xuwie'
+    var out ;
+    function inner(){
+        var name ='shasha';    
+        function insome(){
+            console.log(name);
+        }
+        out = insome;
+    }
+//  insomeao{
+
+//     }
+//   innerao{
+//       name:shasha;
+//       insome:function insome{。。。}
+//   }
+//   go{
+
+//   }
+  inner();
+    out();
     
 
     // 闭包应用场景之一：setTimeout方法传的第一个函数不能传参
@@ -89,7 +99,7 @@
 //     var arr = [];
 //     for(var i=0;i<10;i++){
 //        (function(j){ 
-//         //立即执行函数执行存储了每次对应的j，每个函数都挂载了对应立即执行函数的执行期上下文（虽然立即执行函数执行完会销毁，但是本质上是找不到其引用，执行期上下文还在）   
+//         //立即执行函数执行存储了每次执行的i，每个函数都挂载了对应立即执行函数的执行期上下文（虽然立即执行函数执行完会销毁，但是本质上是找不到其引用，执行期上下文还在）   
 //         arr[j] = function(){
 //             console.log(j)
 //         }
@@ -116,10 +126,10 @@
 //     }
 //     return obj;
 // }
-// var obj = test();
-// obj.A();
-// obj.B('shi');
-// obj.A();
+// var newobj = test();
+// newobj.A();
+// newobj.B('qian');
+// newobj.A();
 
 
 //  var list = document.getElementsByTagName('ul')[0];
@@ -129,8 +139,6 @@
 //      },false)
 //  }
 //  test();
-
-
 
 </script>
 </body>
