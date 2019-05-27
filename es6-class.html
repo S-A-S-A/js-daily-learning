@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Foo {
+            static bar() {
+                this.baz();
+            }
+            // static baz() {
+            //     console.log('hello');
+            // }
+            baz() {
+                console.log('world');
+            }
+        }
+        let foo = new Foo();
+        console.log(Foo.baz)
+        // foo.bar();
+        foo.baz();//world
+        foo.bar();
+        Foo.baz() // hello
+
+    </script>
+</body>
+
+</html>
