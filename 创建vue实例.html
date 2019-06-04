@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{name}}
+        <button @click="changeName">点击</button>  
+        <!-- 点击之后触发changeName方法 -->
+        <a :href="url">vue</a>
+        <!-- Mustache 语法不能作用在 HTML 特性上，遇到这种情况应该使用 v-bind 指令,且使用后就不用再使用双括号 -->
+        <!-- {{tag}} --> <p v-html='tag'></p>
+        <!-- 双大括号会将数据解释为普通文本，而非 HTML 代码。为了输出真正的 HTML，需要使用 v-html 指令 -->
+    </div>
+
+    <script>
+        // v-bind:href 可简写为  ：href
+        // v-on:click  可简写为  @click
+        // v-html      相当于    innerHTML
+        // v-text      相当于    innerText
+        new Vue({
+            el:'#app',    //el对应的属性值里填写的是什么就意味着谁可以使用vue
+            data:{
+                name:'ss',          //在data中存取的数据可直接拿到dom中使用
+                url:'https://cn.vuejs.org/v2/guide/syntax.html',
+                tag:'<span>我是一个span标签哦</span>'
+            },
+            methods:{
+                changeName(){
+                   this.name=this.name+'1';
+                }
+            }
+        })
+        </script>
+</body>
+</html>

@@ -1,12 +1,10 @@
-import loadsh from 'lodash-es';
-var sum =function(){
-    console.log('sum');
+var sum=function(){
+    console.log(sum);
 }
-
-var isArray=function(arg){
-    console.log(loadsh.isArray(arg));
+var isArray=function(){
+    console.log('isArray');
 }
-export {
+export{
     sum,
     isArray
 }

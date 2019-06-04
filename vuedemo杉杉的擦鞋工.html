@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li span {
+            display: inline-block;
+            width: 100px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        /* last-of-type  表示选择最后一个*/
+        ul li span:last-of-type {
+            width: 300px;
+        }
+
+        #button {
+            width: 100px;
+            line-height: 40px;
+            background-color: #bbda2f;
+            color: #fff;
+            outline: none;
+            border: none;
+            margin-left: 200px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="container">
+        <h1 class="title">谁最美？<span></span></h1>
+        <p class="content">迪丽热巴易烊千玺！！</p>
+    </div> -->
+    <ul id="container"></ul>
+    <button id="button">更改职业</button>
+
+    <!-- // const vDom = {
+        //     tag: 'div',
+        //     attrs: {         //attrs:属性
+        //         id: 'container'
+        //     },
+        //     children: [{
+        //         tag: 'h1',
+        //         attrs: {
+        //             class: 'title'
+        //         },
+        //         children: [
+        //             '谁最美？',
+        //             {
+        //                 tag: 'span'
+        //             }
+        //         ]
+        //     },
+        //     {
+        //       tag:'p',
+        //       attrs:{
+        //           class:'content'
+        //       },
+        //       children:[
+        //           '迪丽热巴易烊千玺！！'
+        //       ]
+        //     }] -->
+    <!-- <script src="./jquery-3.3.1/jquery-3.3.1.js"></script> -->
+    <script src="https://cdn.bootcss.com/snabbdom/0.7.2/snabbdom.js"></script>
+    <script>
+        const oContainer=document.getElementById('container');
+        const oButton = document.getElementById('button');
+        const patch = snabbdom.init([]);
+        const h = snabbdom.h;
+        let vNode=null;
+        const dataList = [
+            {
+                name: 'shan',
+                age: 18,
+                profession: '讲师'
+            },
+            {
+                name: 'jc',
+                age: 22,
+                profession: '自称华语最帅男讲师'
+            },
+            {
+                name: 'cst',
+                age: 20,
+                profession: '从前是高瘦帅的，现在是胖讲师'
+            },
+            {
+                name: 'dxm',
+                age: 88,
+                profession: '渡一教具，哪儿都有他'
+            }
+        ];
+        function getData(dataList) {
+            const liArr = [];
+            dataList.forEach(element => {
+                const li = h('li', {}, [
+                    h('span', {}, [element.name]),
+                    h('span', {}, [element.age]),
+                    h('span', {}, [element.profession]),
+                ])
+                liArr.push(li);
+            })
+            const newVNode= h('ul#container',{},liArr);
+            if(vNode){
+                patch(vNode,newVNode)
+            }else{
+                patch(oContainer,newVNode)
+            }
+            vNode=newVNode;
+        }
+        getData(dataList);
+        oButton.onclick=function(){
+            dataList[0].profession='可能是宇宙最美讲师了';
+            dataList[1].profession='杉杉的擦桌工';
+            dataList[2].profession='杉杉的倒水工';
+            dataList[3].profession='杉杉的擦鞋工';
+            getData(dataList);
+        }
+    </script>
+</body>
+
+</html>
