@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        #app {
+            display: inline-block;
+            margin: 20px;
+            border: 1px solid #000;
+            padding: 20px;
+            padding-bottom: 0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .course {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .img-box {
+            position: relative;
+            margin-right: 20px;
+
+        }
+
+        .course-img {
+            width: 140px;
+            height: 80px;
+            vertical-align: bottom;
+        }
+
+        .course span {
+            box-sizing: border-box;
+            position: absolute;
+            bottom: 0;
+            display: block;
+            width: 100%;
+            line-height: 20px;
+            padding-left: 10px;
+            color: #fff;
+            font-size: 10px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .title {
+            width: 250px;
+            box-sizing: border-box;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .free {
+            color: #5fb41b;
+        }
+
+        .play-back {
+            display: inline-block;
+            padding: 0 3px;
+            font-size: 12px;
+            border: 1px solid #73b3e7;
+            color: #73b3e7;
+        }
+
+        .price {
+            color: #e85308;
+
+        }
+
+        .choose {
+            opacity: 0.3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <course-list :list='courseList'></course-list>
+
+    </div>
+    <script>
+        //全局组件
+        //Vue.component('组件的名字'，'{组件的配置}')
+        //Vue.component('couseList'，'{template:`<div>hhhhhh</div>`}')
+        //在Vue那一块的div里，<course-list></course-list>即为使用此组件
+
+        //局部组件
+        //在new Vue的对象里写一个conponent对象
+        //在Vue里component：{组件名：{组件的配置}}
+        //eg：components：{
+        //     course:{
+        //         template:`<div>hhhhhh</div>`
+        //     }
+        // }
+
+        // props特性：传了值接收了      非props特性：传了值，没接收
+
+        const courseList = {     //这里是局部组件的内容（子组件）
+            props: {
+                list: {
+                    type: Array,
+                    default: [],//如果父组件没有给子组件传值，则使用这里default后的默认值，这里默认空数组
+                    required: true,  //父组件是否一定要给子组件传值
+                    validator(value) {     //对传过来的值进行校验，是一个方法，必须要return,满足条件的返回不满足报错。比如这里的父组件有八条数据，长度不小于5，为false，所以报错
+
+                        return value.length < 5;
+                    }
+                }     //可以在这个list属性后添加一些约束，
+            },//props:是一个校验
+            template: ` <ul>
+            {{list}}
+            <li class="course">
+            <div class="img-box">
+               <img class="course-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559761442542&di=60b6c612c5e04b98887ce8801591107a&imgtype=0&src=http%3A%2F%2Fwx1.sinaimg.cn%2Flarge%2F49c027bbly1fkfphn1r8bj20j60srafd.jpg" alt="">
+               <span>人 报名</span>
+               <span>购买</span>
+            </div>
+            <div class="content-box"> 
+                <div class="title">次啊建立覅此加</div>
+                <div class="free">免费</div>
+                <div class="play-back">回放</div>
+                <div class="price">￥88</div>
+            </div>
+            </li>
+        </ul>`
+        }
+        const vm = new Vue({
+            el: '#app',
+            components: {
+                courseList
+            },
+            data: {
+                couseList: [       //父组件
+                    {},
+                    {},
+                    {}
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>

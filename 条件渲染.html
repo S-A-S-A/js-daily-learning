@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+    p{
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        color: #fff;
+        background-color: red;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button @click="showOrHide">显示/隐藏</button>
+        <p v-show="show">ss</p>
+    </div>
+    <script>
+        //v-if=>控制一个元素的显示或隐藏  true就显示，false就隐藏,直接操作dom元素的显示和移除，不好,一般不频繁操作时使用
+        //v-else-if=>与if一起用
+        //v-else=>使用时必须紧挨if或if后的else-if，中间不能有任何东西，if的否定层，if如果等于true显示，else就自然为false不显示
+        //v-show=>与dom没有关系，控制标签里的display是有还是none，一般频繁操作时使用
+      const vm= new Vue({
+          el:"#app",
+          data:{
+              show:true,
+          },
+          methods:{
+            showOrHide(){
+                 this.show=!this.show
+            }
+          }
+      })
+    </script>
+</body>
+</html>

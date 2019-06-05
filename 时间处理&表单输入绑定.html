@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        * {
+            list-style-type: lower-alpha;
+            /* 列表前面的东西变成小写字母 */
+        }
+
+        span {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <input type="text" v-model.trim="inputVal" @keyup.13="addTask">
+            <button @click="addTask">提交</button>
+            <span>{{propmt}}</span>
+            <ul>
+                <li v-for="(item,index) in todoList" :key="item">
+                    {{item}}
+                    <button @click='completeTask(index)'>X</button>
+                </li>
+            </ul>
+        </div>
+        <div>
+
+            <h4>已完成任务</h4>
+            <ul>
+                <li v-for="item in completeList" :key="item">{{item}}</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // v-model:双向数据绑定
+        //.trim自动过滤用户输入的首尾空白字符，可以给 v-model 添加 trim 修饰符
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                inputVal: '',
+                propmt: '',
+                todoList: [],
+                completeList: []
+            },
+            methods: {
+                addTask() {
+
+                    if (this.inputVal == '') {
+                        this.propmt = '不能输入空任务'
+
+                    } else if (this.todoList.includes(this.inputVal)) {
+                        this.propmt = '不能输入相同的任务'
+
+                    } else {
+                        this.todoList.push(this.inputVal);
+                        this.inputVal = '';
+                    }
+                },
+                completeTask(index){
+                    const task=this.todoList.splice(index,1);
+                    this.completeList.push(...task);
+                }
+            },
+            watch: {
+                //  inputVal(){
+                //      this.todoList.push(this.inputVal);
+                //  }
+            }
+        })
+    </script>
+</body>
+
+</html>

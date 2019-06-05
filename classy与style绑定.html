@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+    p{
+        width: 100px;
+        height: 100px;
+        line-height: 100px;
+        text-align: center;
+        color: #fff;
+        background-color: red;
+    }
+    p.active{
+        background-color: pink;
+    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p :class='{active:activeBool}'
+         @click="changeColor"
+         :style="">
+            ss</p>
+    </div>
+    <script>
+    //class  "{}/[]"
+    //{}=>key/value->key为要绑定的类名  value为布尔值，true为绑定成功，false为不绑定
+    //[]=>数组中的每一项都是要绑定的类名
+
+    //style  "{}/[]"
+    //{}=>对象里写要改变的样式，eg：width："200px"这里数据要写成字符串样式，否则会报错，像lineheight要不加引号，要不写成小驼峰式：lineHeight
+    //[]=>若是改变的不止一种样式，就写成数组形式
+    const vm=new  Vue({
+        el:'#app',
+        data:{
+            activeBool:false
+        },
+        methods:{
+            changeColor(){
+                this.activeBool=!this.activeBool;
+            }
+        }
+    })
+    </script>
+</body>
+</html>
