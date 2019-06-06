@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="changeCmp">切换</button>
+        <cmp-one>
+           <span slot="before">插槽</span>
+        </cmp-one>
+        <cmp-two :list="listData">
+                <!-- slot-scope="":作用域插槽，外面必须写template ,用父组件控制子组件里的东西-->
+            <template slot-scope="a">
+                <li>{{a.item}}-{{a.index}}</li>
+            </template> 
+
+        </cmp-two>
+        <cmp-two :list="listData">
+                <template slot-scope="a">
+                        <li>{{a.index}}-{{a.item}}</li>
+                    </template> 
+        </cmp-two>
+        <!-- 动态组件 -->
+        <!-- <keep-alive>
+            <component :is="type"></component>
+            
+        </keep-alive>  相当于把动态组件放进一个缓存里，使它不会再销毁 ，即切换回原来的组件，原来的内容依旧存在 -->
+
+    </div>
+    <script>
+        //插槽：在组件里留一个位置给父级，让父级能够往里插入一些东西，但是这个组件会规定好这个东西该插在哪儿
+        //slot：具名插槽       
+        const cmpOne = {
+            template: `<div>
+                           <slot name="before"></slot>
+                            组件1：<input type="value">
+                            <slot name="after"></slot>
+                        </div>`
+        }
+        const cmpTwo = {
+            props:['list'],
+            template: `<div> 
+                            组件2：<input type="value">
+                            <ul>
+                                 <slot v-for="(item,index) in list"
+                                  :key="item"
+                                  :item="item"
+                                  :index="index">
+                                </slot>
+                            </ul>
+                        </div>`
+        }
+        const vm = new Vue({
+            el: "#app",
+            components: {
+                cmpOne,
+                cmpTwo
+            },
+            data: {
+                showOne: true,
+                type: 'cmp-one',
+                listData:[1,2,3,4,5]
+            },
+            methods: {
+                changeCmp() {
+                    this.showOne = !this.showOne;
+                    this.type = this.type == 'cmp-one' ? 'cmp-two' : 'cmp-one'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

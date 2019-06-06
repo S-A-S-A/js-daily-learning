@@ -87,8 +87,11 @@
 
 <body>
     <div id="app">
-        <course-list :list='courseList'></course-list>
-
+        <!-- 这个 courseList 就是我们要穿的值，父子组件名字别取得一样，不然混了。-->
+        
+        <!-- 这里取名叫的 list  -->
+        <!-- 组件在html引用的时候，要把驼峰转换为横杠 组件名叫courseList 变为这个 course-list -->
+        <course-list :faterdata='couseListData' :shasha="fatershasha"></course-list> 
     </div>
     <script>
         //全局组件
@@ -106,10 +109,10 @@
         // }
 
         // props特性：传了值接收了      非props特性：传了值，没接收
-
         const courseList = {     //这里是局部组件的内容（子组件）
             props: {
-                list: {
+                // 组件内部就用这个变量名接收   是不是list绑定了父组件courselistData的值，相当于拿到了所有的父组件的值，她昨天说的约束就是这儿，就是list里不是写了一些约束条件，就是只接收满足条件的list，就相当于courselistData是满足条件的，不是包括，名字是对应的，不符合就不要了。但是上面list不是绑定的coureslistData？？？？？？？？props里的list就是coureslistData，这个传过来的coureslistData不符合规定，就不要了。list也没值，他昨天演示了，不符合就报警告。？？？那绑定到底啥意思，不是绑定，是传值，可以拒绝不是：xxx的写法都是绑定吗，对于组件就是传值，内部的props里可以设置验证规则，不符合就不要
+                faterdata: {
                     type: Array,
                     default: [],//如果父组件没有给子组件传值，则使用这里default后的默认值，这里默认空数组
                     required: true,  //父组件是否一定要给子组件传值
@@ -117,9 +120,11 @@
 
                         return value.length < 5;
                     }
-                }     //可以在这个list属性后添加一些约束，
+                }   ,
+                shasha:String   //就是fatershasha是string的拿过来?没有里 就是它，它是string才要，，讨论的都是变量整体。验证的也是变量
             },//props:是一个校验
-            template: ` <ul>
+            //这个template是固定写法，props没有中文名。用props接收接收啥/，你自定义的东西:list = ""里面是啥你自己决定的，通常是数据  props接收自定义的东西，list接收满足自己里面写的父组件也就是courselistData的东西，嗯，名字是对应的。冒号后面叫啥，peops里就叫啥也就是他这里的list不是固定写法，是她自己取得名字
+            template: ` <ul>                 
             {{list}}
             <li class="course">
             <div class="img-box">
@@ -139,10 +144,12 @@
         const vm = new Vue({
             el: '#app',
             components: {
-                courseList
+                courseList 
             },
             data: {
-                couseList: [       //父组件
+                // 这是list的值
+                fatershasha:'smart',
+                couseListData: [       //父组件，
                     {},
                     {},
                     {}

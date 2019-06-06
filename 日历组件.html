@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<style>
+  .calender{
+      width: 500px;
+      margin-left: 100px;
+  }
+  .date-header{
+      width: 100%;
+      display: flex;
+      line-height: 30px;
+  }
+  .prev-month,
+  .next-month{
+      border: 15px solid transparent;
+      width: 0;
+      height: 0;
+      cursor: pointer;
+  }
+  .prev-month{
+      border-right-color: #007fff;
+  }
+ .next-month{
+     border-left-color: #007fff;
+ }
+ .show-date{
+     flex: 1;
+     text-align: center;
+     color: #007fff;
+ }
+.week-header{
+    display: flex;
+}
+.week-header>div{
+    flex: 1;
+    text-align: center;
+    line-height: 30px;
+    background-color: #007fff;
+    color: #fff;
+    font-weight: 600;
+}
+.week-day{
+    width: 100%;
+}
+.every-day{
+    display: inline-block;
+    width: 14.28%;
+    line-height: 50px;
+    text-align: center;
+    cursor: pointer;
+}
+.other-day{
+    color: #ccc;
+}
+.now-day{
+    background-color: #007fff;
+    color: #fff;
+    font-weight: 600;
+}
+.active-day:not(.now-day){
+    color: #007fff;
+    border: 2px solid #007fff;
+    line-height: 46px;
+}
+</style>
+</head>
+<body>
+    <div id="app">
+        <div class="calender">
+            <div class="date-header">
+                <div class="prev-month" @click="handlePrev"></div>
+                <div class="show-date">{{`${year}年${month}月${day}日`}}</div>
+                <div class="next-month" @click="handleNext"></div>
+            </div>
+            <div class="date-content">
+                <div class="week-header">
+                    <div>日</div>
+                    <div>一</div>
+                    <div>二</div>
+                    <div>三</div>
+                    <div>四</div>
+                    <div>五</div>
+                    <div>六</div>
+                </div>
+                <div class="week-day">
+                     <div class="every-day" v-for="item in 42">
+                         <div v-if="item - beginDay<=0" class="other-day"> {{ item - beginDay+prevDays }}</div>
+                        <div v-else-if="item-beginDay>0&&item-beginDay<=curDays"
+                            :class="{
+                                'now-day':`${year}-${month}-${item-beginDay}`===curDate,
+                                'active-day':`${year}-${month}-${item-beginDay}`===`${year}-${month}-${day}`
+                            }"
+                            @click="handleChoose(item - beginDay)"
+                            > {{ item - beginDay }}</div>
+                        <div v-else class="other-day">{{item-curDays-beginDay}}</div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+      new Vue({
+          el:'#app', 
+          data:{
+              year:null,
+              month:null,
+              day:null
+          },
+
+          created(){
+            this.getInitDate()
+          },
+          methods:{
+              getInitDate(){
+                  const date =new Date();
+                  this.year=date.getFullYear();
+                  this.month=date.getMonth()+1; //月份是按索引排，为0-11
+                  this.day=date.getDate();
+                  this.curDate=`${this.year}-${this.month}-${this.day}`
+              },
+              getCurDays(){
+                const month=this.month;
+                const year=this.year;
+                if([1,3,5,7,8,10,12].includes(month)){
+                    return 31;
+                }else if([4,6,9,11].includes(month)){
+                    return 30;
+                }else{
+                    if(year%400===0||(year%4===0&&year%100!==0)){
+                        return 29;
+                    }
+
+                    return 28;
+                }
+              },
+              handleChoose(day){
+                  this.day=day;
+              },
+              handlePrev(){
+                
+                if(this.month===1){
+                    this.month=12;
+
+                    this.year--
+                }else{
+                    this.month--;
+                }
+              },
+              handleNext(){
+                if(this.month===12){
+                    this.month=1;
+
+                    this.year++
+                }else{
+                    this.month++;
+                }
+              }
+          },
+          computed:{
+              beginDay(){
+                return new Date(this.year,this.month-1,1).getDay();   //获取星期几的写法：new Date(2019,0,1).getDay() 意为获取2019年1月的第一天是星期几
+              },
+              curDays(){
+                  return new Date(this.year,this.month,0).getDate();  //获取当前这个月有多少天：new Date(2019,6,0).getDate()第一个参数为当前年份，第二个参数为想知道具体天数的当前月份，第三个参数：想要获取总天数传0
+              },
+              prevDays(){
+                return new Date(this.year,this.month-1,0).getDate();
+              }
+          }
+      })
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{msg}}
+    </div>
+    <script>
+        // 1、el mount   -->挂在dom元素
+        //2、template:String ->AST({})（抽象语法树，相当于一个对象）->render->Vnode->真是的dom  有render不找template，有template不找el
+        //3、vue生命周期
+    const vm=new Vue({
+        // el:"#app",      //等价于vm.$mount('#app')
+        data:{
+            msg:'hello world'
+        },
+        template:'<div>我是一个模板{{msg}}</div>',
+        render(h){             //render函数接收了一个参数函数createElement，createElement这个函数可以得到虚拟的节点，不过这里可以不写成createElement，可以写成其他，一般写成h
+          return h('p',{
+              style:{
+                  color:'red',
+                  fontSize:'12px'
+              },
+             class:['classname1','classname2'],
+            //  class:{
+            //     classname1:true,
+            //     classname2:false  这个节点中只有classname1这个类名会显示出来
+            //  }
+            // domProps:{
+            //     innerHTML:'HHHHHHHHH'        //domProps优先级比第三个参数优先级高，这里会覆盖‘我是一个P标签’这一段文字
+            // }
+          },
+        //   '我是一个P标签'
+        [h('h1'),
+        h('h2'),
+        h('h3')]
+          )        //第一个参数创造一个什么样的节点，第二个参数是配置这个节点的样式以及添加类,第三个参数是填加子元素（p标签内添加文字或者用[]，里面写p标签的子节点,哪怕只添加一个子节点，也要用数组包起来）
+        }
+    })
+    vm.$mount('#app')
+    </script>
+</body>
+</html>
