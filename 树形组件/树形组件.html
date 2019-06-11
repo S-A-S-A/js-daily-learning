@@ -121,8 +121,8 @@
             }"
             >
             <span  @click="handleClick(index)">{{item.name}}</span>
-            <tree :data="item.children"                   //这里又绑一个data，还是那个data吗？
-             v-show="showChildren[index]"                 //这里再次用组件，进入下一层---孩子层，但是第二次用的时候没有绑点击事件啊，怎么就还能靠点击进行下去
+            <tree :data="item.children"                   
+              v-show="showChildren[index]"         
              v-if="alreadyShow[index]"
             ></tree>
         </li>
@@ -130,7 +130,7 @@
             `,
             data(){
                 return{
-                    showChildren:[],              //这里的data执行时上面的props后的那个data执行吗？
+                    showChildren:[],              //规定：组件中的数据写成函数的形式，，里面写成返回对象的形式，不是上面那个data
                     alreadyShow:[]
                 }
             },
