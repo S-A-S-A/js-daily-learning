@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="ul"></ul>
+    <button id="btn">btn</button>
+    <form>
+        <input type="text" name="username" id="username">
+        <input type="text" name="age" id="age">
+        <input type="submit" id="sub">
+    </form>
+    <script>
+        btn.onclick=function(){
+            ajaxfun('GET','./getNews.php','',showlist,true);
+        }
+        sub.onclick=function(e){
+             e.preventDefault                                      //取消默认提交表单的事件
+             var data='username='+username.value+'&age='+age.value;
+             ajaxfun('POST','./post.php','data',showperson,true);
+        }
+        function ajaxfun(method,url,data,callback,flag ) {
+            var xhr = 'null';
+            if (window.XMLHttpRequest) {
+                xhr = new XMLHttpRequest();
+            } else {
+                xhr = new ActiveXObject('microsoft.XMLHttp');
+            }
+            method = method.toUpperCase();
+            if (method == 'GET') {
+                xhr.open('GET', url+'?'+data, flag);
+                xhr.send();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            callback(xhr.responseText);             // xhr.onsponseText是字符串类型的json格式，需要转换成json格式。前面加个JSON.parse()
+                        }
+                    }
+                }
+            }else if(method == 'POST'){
+                xhr.open('post', url, flag);
+                xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded');
+                xhr.send(data);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4) {
+                        if (xhr.state == 200) {
+                            callback(xhr.responseText);             
+                        }
+                    }
+                }
+            }
+        }
+        function showlist(datalist){
+           var value=JSON.parse(datalist);
+           var str='';
+           value.forEach(function(ele,index){
+              str+='<li>'+ele.title+'-'+ele.date+'</li>';
+           })
+           ul.innerHTML=str;
+        }
+        function showperson(data){
+            alert(data);
+        }
+    </script>
+</body>
+
+</html>
