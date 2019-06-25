@@ -44,7 +44,7 @@
 
 <body>
     <div id="app">
-     <tree :data="treeData"></tree>
+        <tree :data="treeData"></tree>
     </div>
     <script>
         const treeData = [
@@ -110,7 +110,7 @@
             }
         ]
         Vue.component('tree', {
-            props:['data'],
+            props: ['data'],
             template: `
             <ul>
             <li v-for='(item,index) in data'
@@ -128,17 +128,17 @@
         </li>
         </ul>
             `,
-            data(){
-                return{
-                    showChildren:[],              //规定：组件中的数据写成函数的形式，，里面写成返回对象的形式，不是上面那个data
-                    alreadyShow:[]
+            data() {
+                return {
+                    showChildren: [],              //规定：组件中的数据写成函数的形式，，里面写成返回对象的形式，不是上面那个data
+                    alreadyShow: []
                 }
             },
-            methods:{
-                handleClick(index){
-                  const show=!this.showChildren[index];
-                  this.showChildren.splice(index,1,show);
-                  this.alreadyShow.splice(index,1,true)
+            methods: {
+                handleClick(index) {
+                    const show = !this.showChildren[index];
+                    this.showChildren.splice(index, 1, show);
+                    this.alreadyShow.splice(index, 1, true)
                 }
             }
         })
@@ -147,7 +147,7 @@
             data: {
                 treeData,
             },
-         
+
         })
     </script>
 </body>
