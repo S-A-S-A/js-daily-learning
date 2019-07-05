@@ -10,19 +10,23 @@
         * {
             margin: 0;
             padding: 0;
+            font-size: 0px;
         }
-        /* float和margin */
+        /* html,body{
+            height: 100%;
+            width: 100%;
+        } */
+        /* 第一种：float和margin */
         /* .container {
             height: 500px;
 
         }
 
         .left {
-            width: 200px;
             height: 500px;
+            width: 200px;
             background-color: red;
             float: left;
-              
         }
 
         .right {
@@ -79,18 +83,44 @@
             left: 200px;
             top: 0px;
             right: 0; */
-            overflow: hidden;
+            /* overflow: hidden; */
+            display: flex;
+            /* flex: 1; */
             margin-left: 200px;
         }
     </style>
 </head>
 
 <body>
-    <div class="comtainer">
+    <div class="container">
         <div class="left"></div>
         <div class="right"></div>
     </div>
+<!-- <script>
+ Object.assign( {a:1,b:2},{b:3,c:4} )  //第二个对象并到第一个中，属性名相同，则覆盖第一个对象的值，
+                                       //如果没有相同的属性名，则把该属性添加到第一个对象中
 
+
+ function Person(name,age){       //构造函数，函数名为大驼峰，普通函数，函数名为小驼峰
+     this.name = name;
+     this.age = age;
+  }          
+
+ class  Person{                //class类，是个对象
+     constructor(name,age){   //constructor用于参数初始化
+         this.name = name
+         this.age = age;
+     }
+     static  son() {return 'hello'; }    //静态属性，不能被继承，只能通过类来调用。eg：Person.son(),得到'hello'
+      son2(){ }   //公有属性，不需要加public关键字，默认为公有属性
+     _son3(){ }   //私有属性，不需要加private关键字，以"_"表示私有属性，只能自己使用，不能被继承
+  }         
+
+var obj ={
+    name,   //name: name
+    son (){} , // son : function(){}
+} -->
+</script>
 </body>
 
 </html>

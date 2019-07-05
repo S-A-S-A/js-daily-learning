@@ -3,7 +3,7 @@ export default {
     state:{  //公共数据池
       studentList:[],
     },
-    getters:{             //用来更改store里面的函数
+    getters:{             //用来更改state的函数
       newStudent(state){    //可传第二个参数，参数为getters，指本身这个对象。eg：在newStudent后面有一个a函数，我们可以在newStudent中通过getters.a调用
         return state.studentList.map((item,index)=>{
           if(index==0){

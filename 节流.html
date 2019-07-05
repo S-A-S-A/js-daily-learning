@@ -17,6 +17,7 @@
          return function(e){
              var nowTime=new Date().getTime();
              if(nowTime-lastTime>wait){
+                 console.log(this);
                  hander.apply(this,arguments);//这里如果不用apply，this指的是window，因为没有人调用hander这个函数，这里改变this指向，指向hander这个函数
                  lastTime=nowTime;
              }

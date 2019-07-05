@@ -19,7 +19,7 @@
                     arg=arguments;
                 clearTimeout(timer);
                 timer = setTimeout(function () {
-                    hander.apply(self,arg);
+                    hander.apply(self,arg);//这里不能直接调用hander函数，因为写成函数执行的形式的话，hander函数里的this指向的是window，用一个apply，把this指向hander函数
                 }, delay)
             }
         }
