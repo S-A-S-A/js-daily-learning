@@ -18,7 +18,7 @@
              var nowTime=new Date().getTime();
              if(nowTime-lastTime>wait){
                  console.log(this);
-                 hander.apply(this,arguments);//这里如果不用apply，this指的是window，因为没有人调用hander这个函数，这里改变this指向，指向hander这个函数
+                 hander.apply(this,arguments);//hander里没用写明this，默认this指向window，而用了apply，使得默认的this指向obtn。但是其实这里buy函数中根本没用到this，所以这个地方用不用apply都行
                  lastTime=nowTime;
              }
          }

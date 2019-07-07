@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var value='window'
+        var obj={
+            value:'obj'
+        }
+        function show(name,age){
+            console.log(this.value)
+            return{
+                name:name,
+                age:age
+            }
+        }
+        //call
+    //  Function.prototype.newcall=function(){
+    //      var likeobj=arguments[0]||window;
+    //      likeobj.fn=this;
+    //      var args=[];
+    //      for(i=1;i<arguments.length;i++){  //call从第二位开始传参数
+    //          args.push('arguments['+i+']')
+    //      }
+    //     // args=['arguments[1]','arguments[2]','arguments[3]']
+    //     var result=eval('likeobj.fn('+args.join(',')+')')   //args.join(',')此处得到"arguments[1],arguments[2],arguments[3]"
+    //      delete likeobj.fn;
+    //      return result;
+    //  }
+    //   var res=show.newcall(obj,'ss','18');
+
+
+    //apply
+    Function.prototype.newcall=function(likeobj,arr){
+         var likeobj=arguments[0]||window;
+         likeobj.fn=this;
+         if(!arr){
+             var result=likeobj.fn();
+             delete likeobj.fn;
+             return result;
+         }else{
+         var args=[];
+         for(i=0;i<arr.length;i++){  
+             args.push('arr['+i+']')
+         }
+        // args=['arguments[1]','arguments[2]','arguments[3]']
+        var result=eval('likeobj.fn('+args.join(',')+')')   //args.join(',')此处得到"arr[0],arr[1],arr[2]"
+         delete likeobj.fn;
+         return result;
+         }
+     }
+      var res=show.newcall(obj,['ss','18']);
+    </script>
+</body>
+</html>
