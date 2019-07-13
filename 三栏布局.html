@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+       /* .box{
+           height: 500px;
+           position: relative;
+       } */
+
+        /* .leftbox {
+            width: 200px;
+            height: 100%;
+            float: left;
+            background-color: cadetblue;
+        }
+     
+        .center {
+            height: 100%;
+            margin: 0 200px;
+            background-color: blue;
+        }
+        .rightbox {
+            width: 200px;
+            height: 100%;
+            float: right;
+            background-color: yellow;
+        }
+      */
+      /* .leftbox{
+            width: 200px;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: cadetblue;
+      }
+      .rightbox {
+            width: 200px;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: yellow;
+        }
+        .center {
+            height: 100%;
+            position: absolute;
+           left: 200px;
+            right: 200px;
+            background-color: blue;
+        } */
+
+        /* 三列宽度一致
+        .box{
+          display: table;
+          width: 100%;
+       }
+        .leftbox{
+            display: table-cell;
+            background-color: cadetblue;
+      }
+      .rightbox {
+           height: 300px;
+            display: table-cell;
+            background-color: yellow;
+        }
+        .center {
+            display: table-cell;
+            background-color: blue;
+        } */
+        .box{
+            display: flex;
+            flex-direction: row;
+        }
+        .leftbox {
+            width: 200px;
+            height: 400px;
+            background-color: cadetblue;
+        }
+     
+        .center {
+            /* width: 100%; */
+            /* margin: 0 200px; */
+            flex: 1;
+            background-color: blue;
+        }
+        .rightbox {
+            width: 200px;
+      
+            background-color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="leftbox"></div>
+        <div class="center"></div>
+        <div class="rightbox"></div>
+      
+     
+    </div>
+</body>
+
+</html>
