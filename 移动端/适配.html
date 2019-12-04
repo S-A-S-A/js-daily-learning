@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     .em{
+         font-size: 15px;
+     }
+     .em p{
+         font-size: 2em;
+     }
+     html{
+         font-size: 20px;
+     }
+     .rem{
+         width: 10rem;
+     }
+    </style>
+</head>
+<body>
+    <!-- 
+      适配：在不同的手机设备上，，页面相对性的达到合理的展示（自适应）或者保持统一效果的等比缩放（看起来差不多）
+      适配的元素：
+               1、字体
+               2、宽高
+               3、间距
+               4、图像（图标，图片）
+      适配的方法：
+              1、百分比适配（根据父级算百分比，配合其他布局使用）
+              2、viewport缩放（把所有机型的css像素设置成一致的，用缩放比=css像素/视口宽度   如果用这个写法，script获取视口宽度必须写在head里，表示一进来就要处理好）
+              3、DPR缩放（把css像素缩放成与设备像素一样大的尺寸，根据dpr的值，把视口进行缩放，缩放到物理像素，也就是把css像素的值设置成物理像素，让所有的设备都变成一个css像素对应一个物理像素，关键点在initial-scale=？,minimum-scale=？,maximum-scale=？，？的地方原是缩放比，，若做dpr适配，则？处写1/DPR的值）
+              4、rem适配（把所有的设备都分成相同的若干份，再计算元素宽度所占的份数=>栅格化原理） //当前主流
+              5、vm，vh适配
+
+      em和rem最终显示出来的效果都还是会转换成px
+
+              em：作为font-size的单位时，其代表父元素的字体大小 eg：.em{font-size:20px}  .em p{font-size:2em}  此处em作为font-size的单位，em代表父级字体大小，此处父级字体为20px，所以1em=20px，此处.em p{font-size:2em}等价于.em p{font-size:2*20px=40px}
+                  作为其他属性单位时，代表自身字体大小  eg：.em{font-size:12px; width:10em},此处em作为width的单位，代表自身字体大小，即1em=自身的font-size：12px，所以此处等价于.em{font-size:12px; width:10em=10*12px=120px}
+                  问题：1、chrom下有最小字体限制，最小为12px，其他浏览器没有此限制
+                       2、如果两个一样的元素，但是里面字体不一样，那就不能统一设置了。或者元素字体变化了，就又要统一设置一遍
+              rem：css3新增的一个相对单位，是相对于根元素字体大小（根元素指html的大小）
+                   eg:
+                     设置了html{font-size：14px}
+                          .rem{
+                              width:10rem;            //等价于width：10rem<=>10*14=140px
+                          }
+      rem适配的算法：（栅格化原理）
+             1、元素在设计稿里的宽度（量出来的）
+             2、列数（随便给的）
+             3、一列的宽度（算出来的）
+                =屏幕实际的宽度（css像素）/列数
+                一列的宽度就是1rem
+             4、元素实际占的列数（算出来的）
+                =元素设计稿的宽/一列的宽
+                =元素设计稿的宽/1rem
+             5、元素适配的宽度（算出来的）
+                =元素所占的列数*一列的宽
+                =元素所占的列数*1rem
+
+            eg：width：10rem；实际切图时给的值
+                元素适配的宽度=元素所占列数*一列的宽
+                元素适配的宽度=>width
+                元素所占列数 =>10
+                一列的宽 =>rem
+                html{
+                    font-size:屏幕实际的宽度（css像素）/列数(1rem)
+                }
+     -->
+     <div class="em">
+         <p>em测试</p>
+     </div>
+     <div class="rem">
+         <p>rem测试</p>
+     </div>
+</body>
+</html>
