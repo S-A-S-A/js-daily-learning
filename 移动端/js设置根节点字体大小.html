@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body{
+        margin: 0;
+    }
+    div{
+        background-color: green;
+        float: left;
+        /* width: 4rem;
+        height: 4rem; */
+        width:1.875rem;
+    }
+    </style>
+    <script>
+        //方法一：
+       // (function (){
+       //     var html=document.documentElement    //html节点
+       //     var width=html.clientWidth           //获取css像素
+       //     html.style.fontSize=width/16+'px';      //把屏幕分成了16列，以iPhone为例，因为iphone5css像素宽为320，16列刚好能除尽,此处1rem=20px
+       // })()
+        //以一个机型为准，其余的机型也能自动适配，此处以iphone5为准
+        //1rem=20px;  1列的宽度
+        //80/1rem=/80px/20px=4      每个div占4列  （ipehone5像素为320，分为4份，每份80px）
+        //4*1rem=4rem    元素适配的宽度
+
+        //真正切图的时候的方法！！！！！！！！！！！！！！！！！！！
+        //1、算rem，还是根据设备实际的css像素算
+        //2、量出一个元素在设计稿里的尺寸    以iPhone5为例，iphone5css像素为320，物理像素为320*2=640，所以一般切图会以640为主,此处一行四个div，每个div尺寸为640/4=160
+        //3、拿这个尺寸除以DPR的值后再去换算！！！   160/2=80（每个元素所占尺寸），再80/1rem=80/20px=4  再4*1rem=4rem
+            
+
+
+
+
+
+       //方法二：
+       (function(doc,win,designwidth){
+          const html =document.documentElement;
+          
+          const refreshRem=()=>{
+              const clientWidth=html.clientWidth;
+              if(clientWidth>=designwidth){   //给宽度一个最大值，如果设备的宽度已经超过设计稿的尺寸了，统一按一个值去算（传的第三个参数）
+                 html.style.fontSize='100px';
+
+              }else{
+                //   html.style.fontSize=16*clientWidth/375+'px'       //目的是为了找一个基准点，此处以iphone6为例  如果是iPhone6，则clientwidth为375，则375/375=1，此处对应16*1；如果是屏幕尺寸小于iphone6，则就是16*一个小于1的数，如果是屏幕尺寸大于iphone6，则是16*一个大于1的数
+                  html.style.fontSize=100*(clientWidth/designwidth)+'px'  //写元素具体的宽高时在具体像素中，小数点前移两位即可，比如750px的图，，可写为width：7.5rem
+              }
+          }
+          
+          //dom加载完的一个事件,触发refreshRem函数
+          doc.addEventListener('DOMContentLoaded',refreshRem)
+       })(document,window,750)  //此处的750是以iphone6为基准
+    </script>
+</head>
+<body>
+    <!-- 
+        元素适配的宽度
+                =元素所占的列数*一列的宽
+                =元素所占的列数*1rem
+        一列的宽度
+                =屏幕实际的宽度（css像素）/列数
+                一列的宽度就是1rem
+        元素实际占的列数
+                =元素设计稿的宽/一列的宽
+                =元素设计稿的宽/1rem
+     -->
+     <div>1</div>
+     <div>2</div>
+     <div>3</div>
+     <div>4</div>
+</body>
+</html>

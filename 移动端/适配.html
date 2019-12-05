@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" id="view">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
@@ -19,6 +19,20 @@
          width: 10rem;
      }
     </style>
+    <script>
+      //viewport适配
+      (function(){
+        //获取css像素（viewport没有缩放）
+        var curwidth=document.documentElement.clientWidth;
+        // var curwidth=window.innerWidth;
+        // var curwidth=window.screen.width;
+
+       var targetwidth=375;   //切图也根据375切
+       var scale=curwidth/targetwidth; 
+       var view=document.getElementById('view')  //name为viewport的meta标签取类名view
+       view.content='initial-scale='+scale+',user-scalable=no,minimum-scale='+scale+',maximum-scale='+scale+'';
+      })()
+    </script>
 </head>
 <body>
     <!-- 
@@ -30,7 +44,7 @@
                4、图像（图标，图片）
       适配的方法：
               1、百分比适配（根据父级算百分比，配合其他布局使用）
-              2、viewport缩放（把所有机型的css像素设置成一致的，用缩放比=css像素/视口宽度   如果用这个写法，script获取视口宽度必须写在head里，表示一进来就要处理好）
+              2、viewport缩放（把所有机型的css像素设置成一致的，用缩放比=css像素/视口宽度   如果用这个写法，script获取视口宽度必须写在head里，表示一进来就要处理好。一般目标像素取iphone6的375px，再用公式：当前机型css像素/目标像素=缩放比，再把缩放比赋值给initial-sacle和minimum-scale、maximum-scale，此方法缺点是即视大屏手机最后也只会呈现出iphone6的效果）
               3、DPR缩放（把css像素缩放成与设备像素一样大的尺寸，根据dpr的值，把视口进行缩放，缩放到物理像素，也就是把css像素的值设置成物理像素，让所有的设备都变成一个css像素对应一个物理像素，关键点在initial-scale=？,minimum-scale=？,maximum-scale=？，？的地方原是缩放比，，若做dpr适配，则？处写1/DPR的值）
               4、rem适配（把所有的设备都分成相同的若干份，再计算元素宽度所占的份数=>栅格化原理） //当前主流
               5、vm，vh适配
