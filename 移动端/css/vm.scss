@@ -1,0 +1,12 @@
+@function vw($px){
+    @return $px/750*100vw;//(以iphone6为基准)
+}
+*{
+    margin: 0;
+}
+div{
+    width:vw(187.5);
+    height:vw(187.5);
+    background-color: green;
+    float: left;
+}

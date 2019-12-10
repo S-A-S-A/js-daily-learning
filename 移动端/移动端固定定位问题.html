@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+        }
+    header{
+        width: 100%;
+        height: 50px;
+        background-color: red;
+        position: fixed;
+        top: 0;
+    }
+    </style>
+</head>
+<body>
+    <!-- 
+        !!固定定位问题只存在于ios中，不存在于Android中
+        position:flex
+        input
+     -->
+     <header>这是一个头部</header>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     固定定位<br>
+     <input type="text">
+     <!-- 问题：在ios下面，如果页面有一个固定定位元素以及一个input元素的时候，用户但凡点击输入框之后（不只是type为text的，只要能唤起手机中的键盘的，都会导致固定定位失效），固定定位失效 -->
+     <!-- 解决方案一：通过相对定位/绝对定位模拟固定定位 -->
+     <!-- 解决方案二：通过事件 -->
+</body>
+</html>

@@ -1,0 +1,10 @@
+* {
+  margin: 0;
+}
+
+div {
+  width: 25vw;
+  height: 25vw;
+  background-color: green;
+  float: left;
+}
