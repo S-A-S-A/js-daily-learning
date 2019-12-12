@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- <link rel="stylesheet" href="1.css" media="all">   2 在link标签里使用,表示在all里使用1.css所代表的样式 -->
+  <title>Document</title>
+  <style>
+    div {
+      width: 100px;
+      height: 100px;
+      background-color: red;
+    }
+
+    /* 1 在样式里使用 */
+    /* @media all{    对所有设备执行以下样式
+       div{
+           width: 300px;
+           height: 300px;
+           background-color: blue;
+       }
+     } */
+    /* @media print{    对打印机设备执行以下样式
+       div{
+           width: 300px;
+           height: 300px;
+           background-color: yellow;
+       }
+     } */
+    /* @media screen{    对彩色电脑屏幕执行以下样式
+       div{
+           width: 500px;
+           height: 500px;
+           background-color: pink;
+       }
+     } */
+    /* 3 在import里使用 ,表示在最小宽度为200px的条件下使用1.css的样式*/
+    /* @import url('1.css') (min-width: 200px);  */
+
+
+
+    /* @media (min-width: 500px){  屏幕尺寸超过500,色块变为蓝色
+       div{
+         background-color: blue;
+       }
+     } */
+
+
+    /* @media (orientation: landscape){  宽度大于高度(横屏)执行以下样式
+       div{
+         background-color: blue;
+       }
+     } */
+
+    /* @media (aspect-ratio:4/3) {      比如800*600的时候宽高比为4:3
+      div {
+        background-color: blue;
+      }
+    } */
+
+    @media (-webkit-device-pixel-ratio:2) {      
+      div {
+        background-color: blue;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+     1、媒体类型
+      all:      所有设备
+      print:    打印机设备
+      screen:   彩色的电脑屏幕
+      speech:   听觉设备(针对有听力障碍的人士,可以把页面的内容以语音的方式呈现的设备)    
+
+    2、媒体特性 
+       width         宽度
+         min-width     最小宽度,宽度只能比这个值大
+       height        高度
+         max-height    最大高度,高度只能比这个值小
+       orientation   方向
+         landscape     宽度大于高度(横屏)
+         portrait      高度大于宽度(竖屏)
+       aspect-ratio  宽高比
+       -webkit-device-pixel-ratio   像素比(webkit内核私有属性)
+    -->
+  <div>热巴热巴</div>
+</body>
+
+</html>

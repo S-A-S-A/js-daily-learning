@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    div{
+        width: 200px;
+        height: 200px;
+        background-color: red;
+    }
+    /* 满足针对所有设备,最小宽度为700px,方向为横屏的条件才执行以下样式 */
+    /* @media all and (min-width: 700px) and (orientation: landscape) {
+        div{
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+        }
+    } */
+      /* 满足最大宽度为700px或者方向为横屏的条件才执行以下样式 */
+      /* @media(max-width:700px),(orientation: landscape) {
+        div{
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+        }
+    } */
+      /* 屏幕尺寸小于700px才执行以下样式*/
+      /* @media not all and (min-width: 700px){
+        div{
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+        }
+    } */
+          /* 宽度大于1000的彩色屏幕才执行以下样式*/
+      @media only screen and (min-width: 1000px){
+        div{
+            width: 300px;
+            height: 300px;
+            background-color: blue;
+        }
+    }
+    </style>
+</head>
+<body>
+    <!-- 
+        逻辑运算符(用来做条件判断的)
+        and    合并多个媒体类型(并且的意思)
+        ,      匹配某个媒体查询(或者的意思)
+        not    对媒体查询结果取反(不能单独使用后面必须是复合语句)
+        only   仅在媒体查询匹配成功后应用样式(防范老旧浏览器)
+     -->
+     <div>千玺千玺</div>
+</body>
+</html>
