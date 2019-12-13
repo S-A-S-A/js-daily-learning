@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- 
+    1、容器
+          .container-fluid      100%宽度
+          .container            固定宽度
+                                宽度>=1200       1140px
+                                992<=宽度<1200   960px
+                                768<=宽度<992    720px
+                                576<=宽度<768    540px
+                                宽度<576         auto
+          注意：这两个class不能嵌套，可以是兄弟关系
+    2、行  .row
+    3、列
+           .col-xl-*       超大
+                           1200≤屏幕宽度，容器的宽度固定为1140px，一行显示n（row里的div个数）列
+                           屏幕宽度<1200,一行显示一列
+                
+           .col-lg-*        大
+                           992≤屏幕宽度<1200，容器的宽度固定为960px，一行显示n（row里的div个数）列
+                           屏幕宽度<992,一行显示一列
+
+           .col-md-*       中等
+                           768≤屏幕宽度<992，容器的宽度固定为720px，一行显示n（row里的div个数）列
+                           屏幕宽度<768,一行显示一列
+
+           .col-sm-*      小
+                          576≤屏幕宽度<768，容器的宽度固定为540px，一行显示n（row里的div个数）列
+                          屏幕宽度<576,一行显示一列
+
+           .col-*        超小
+                          屏幕宽度<576，容器的宽度固定为auto，一行永远显示n（row里的div个数）列
+                          屏幕宽度<992,一行显示一列
+           .col          等宽列，用这个class可以创建n个等宽的列，在任意尺寸下每个列都是等宽的
+ -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-1"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1"></div>
+
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"
+        integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

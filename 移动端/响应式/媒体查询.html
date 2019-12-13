@@ -37,7 +37,16 @@
        }
      } */
     /* 3 在import里使用 ,表示在最小宽度为200px的条件下使用1.css的样式*/
-    /* @import url('1.css') (min-width: 200px);  */
+      /* 如果是用import引入外部css样式的话，引入的样式必须放在上面，而且style里的样式不能给宽 */
+     /* @import url('css/200.css') (min-width: 200px);   此处假设css/200.css是 引入的外部css样式，他必须写在其他的css样式前面，而且具体样式里不能给宽 */
+       /* div{
+        //此处不能写宽
+         height: 100px;
+         float: left;
+       } */
+
+
+
 
 
 

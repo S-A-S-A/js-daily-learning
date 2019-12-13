@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+    <style>
+     .row div{
+         background-color: blue;
+         color: #fff;
+         height: 100px;
+         border: 1px solid #000;
+     }
+    </style>
+</head>
+<body>
+    <!-- 
+        1、超大屏幕下一行显示6个             1个div占两列
+        2、大屏幕下一行显示4个               1个div占3列
+        3、中等屏幕下一行显示3个             1个div占4列
+        4、小屏幕下一行显示2个               1个div占6列
+        5、超小屏幕下一行显示1个             1个div占12列222222
+     -->
+     <div class="container">
+         <div class="row">
+             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">1</div>
+             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">2</div>
+             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">3</div>
+             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">4</div>
+             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">5</div>
+             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">6</div>
+         </div>
+     </div>
+</body>
+</html>
