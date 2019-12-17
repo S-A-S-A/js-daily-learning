@@ -8,20 +8,42 @@
 </head>
 <body>
     <script>
+        // 方法一：
         var arr=[1,1,1,1,1,2,2,2,3,3,3,0,0]
-        Array.prototype.unique=function(){
-            var temp={},
-            arr=[],
-            len=this.length;
-            for(i=0;i<len;i++){
-                if(!temp[this[i]]){   //如果temp里没有对应的属性，（如：temp[1]，表示temp里没有1这个属性），则返回undefined，
-                                     //加一个"！"先把值变为布尔值再取反，undefined变布尔值为false，取反为true。
-                 temp[this[i]]='abc';
-                 arr.push(this[i]);
-                }
-            }//这一步实现若temp里没有对应属性，则进入if，属性为对应数组里的值，如：1，用'abc'作为temp里的属性值占位，下一次遇到相同的值时，temp里有对应的属性名，则不会执行if，没有添加值进arr数组的操作
-          return arr;
-        }
+        // Array.prototype.unique=function(){
+        //     var temp={},
+        //     arr=[],
+        //     len=this.length;
+        //     for(i=0;i<len;i++){
+        //         if(!temp[this[i]]){   //如果temp里没有对应的属性，（如：temp[1]，表示temp里没有1这个属性），则返回undefined，
+        //                              //加一个"！"先把值变为布尔值再取反，undefined变布尔值为false，取反为true。
+        //          temp[this[i]]='abc';
+        //          arr.push(this[i]);
+        //         }
+        //     }//这一步实现若temp里没有对应属性，则进入if，属性为对应数组里的值，如：1，用'abc'作为temp里的属性值占位，下一次遇到相同的值时，temp里有对应的属性名，则不会执行if，没有添加值进arr数组的操作
+        //   return arr;
+        // }
+        // arr.unique()
+        //方法二：
+        // function unique(arr){
+        //     let newarr=Array.from(new Set(arr))    //利用set里的值唯一，所以它能自动去重   Array.from返回一个数组
+        //     console.log(newarr)
+        //     return newarr
+        // }
+        // unique(arr)
+        //方法三：
+         function unique(arr){
+             var newarr=[];
+             for(let i=0;i<arr.length;i++){
+                 if(newarr.indexOf(arr[i])==-1){
+                     newarr.push(arr[i])
+                 }
+             }
+            console.log(newarr)
+             return newarr;
+         }
+        unique(arr)
+
     </script>
 </body>
 </html>

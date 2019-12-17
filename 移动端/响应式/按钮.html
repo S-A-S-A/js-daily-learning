@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+        按钮：.btn   .btn-*
+                  1、.btn必须给，需要颜色的话再加上颜色的class
+                  2、按钮类可用于<a>,<button>,<input>元素上
+     -->
+    <button type="button" class="btn btn-warning">警告</button>
+
+    <hr>
+    <!--  边框按钮：.btn-outline-*-->
+    <button type="button" class="btn btn-outline-success">成功边框按钮</button>
+
+    <hr>
+    <!--  大小尺寸按钮：.btn-lg/.btn-sm（结合前面栅格模型，但是对于按钮尺寸来讲，只有lg和sm两种）  -->
+    <button type="button" class="btn btn-primary btn-lg">大号按钮</button>
+    <hr>
+    <!-- 块级按钮：.btn-block -->
+    <button type="button" class="btn btn-danger btn-block">块级警告按钮（不设置宽度，将会取父级宽度，能够铺满屏幕）</button>
+    <hr>
+    <!--  按钮组：.btn-group,需要加在按钮的父级身上 -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary">百度</button>
+        <button type="button" class="btn btn-primary">阿里</button>
+        <button type="button" class="btn btn-primary">京东</button>
+    </div>
+    <!--大按钮组：.btn-group .btn-group-lg  -->
+    <div class="btn-group btn-group-lg">
+        <button type="button" class="btn btn-primary">百度</button>
+        <button type="button" class="btn btn-primary">阿里</button>
+        <button type="button" class="btn btn-primary">京东</button>
+    </div>
+    <!--小按钮组：.btn-group .btn-group-sm  -->
+    <div class="btn-group btn-group-sm">
+        <button type="button" class="btn btn-primary">百度</button>
+        <button type="button" class="btn btn-primary">阿里</button>
+        <button type="button" class="btn btn-primary">京东</button>
+    </div>
+    <!--垂直按钮组：.btn-group .btn-group-vertical -->
+    <div class="btn-group btn-group-vertical">
+        <button type="button" class="btn btn-primary">百度</button>
+        <button type="button" class="btn btn-primary">阿里</button>
+        <button type="button" class="btn btn-primary">京东</button>
+    </div>
+    <!--内嵌按钮组及下拉菜单需引入三个bootstrap的js文件：.btn-group -->
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary">百度</button>
+        <button type="button" class="btn btn-primary">阿里</button>
+        <div class="btn-group">
+            <!--点击的父级元素，需要添加一个class为btn-group的父级-->
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">京东</button>
+            <!--点击的元素，class里需要一个dropdown-toggle，标签上需要一个data-toggle="dropdown"-->
+            <div class="dropdown-menu">
+                <!--弹出内容的父级-->
+                <a href="#" class="dropdown-item">京东金融</a>
+                <!--弹出的内容需添加一个class：dropdown-item-->
+                <a href="#" class="dropdown-item">京东超市</a>
+            </div>
+        </div>
+    </div>
+    <!--拆分按钮组及下拉菜单-->
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary">百度</button>
+        <button type="button" class="btn btn-primary">阿里</button>
+        <button type="button" class="btn btn-primary">京东</button>
+        <span class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"></span>
+        <!--分离出来的小三角，标签类型任意-->
+        <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">京东金融</a>
+            <a href="#" class="dropdown-item">京东超市</a>
+        </div>
+    </div>
+    <!--垂直按钮组及下拉菜单（不支持拆分）-->
+    <div class="btn-group btn-group-vertical">
+        <button type="button" class="btn btn-primary">百度</button>
+        <button type="button" class="btn btn-primary">阿里</button>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">京东</button>
+            <div class="dropdown-menu">
+                <a href="#" class="dropdown-item">京东金融</a>
+                <a href="#" class="dropdown-item">京东超市</a>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"
+        integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

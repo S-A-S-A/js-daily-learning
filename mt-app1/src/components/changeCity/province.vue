@@ -58,6 +58,8 @@ export default {
     };
   },
   created(){
+
+    
     api.getProvince().then(res=>{
       this.provinceList=res.data.data.map((item)=>{
         item.name=item.provinceName
