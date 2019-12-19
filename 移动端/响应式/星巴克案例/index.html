@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/index.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- 
+                边框：.border/.border-top等
+                带颜色边框：  .border border-primary/.border border-success
+                边框圆角：eg：<img src="..." alt="..." class="rounded/rounded-bottom/rounded-circle/rounded-0">
+                间距：mt-3:margin-top:3rem;
+                      mb-3:margin-bottom:3rem;
+                      my-3:margin:3rem 0;
+                      py-4:padding:4rem 0;
+                      mx-5:margin:0 5rem;
+                显示与隐藏：d-*
+                响应式图片：img-fluid      图片响应式
+                           img-thumbnail  图片缩略图
+             -->
+            <!-- 左边的内容 -->
+            <section class="col-lg-4 border-right">
+                <div class="row align-items-center p-4 navContent d-none d-sm-flex">
+                    <!--d-none d-sm-flex表示一进来就为none，啥都不显示，直到小屏幕尺寸sm显示为flex，超过sm的尺寸也要显示为flex-->
+                    <a href="#">
+                        <img src="./images/logo.svg" alt="">
+                    </a>
+                    <ul class="nav mr-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-dark">门店</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-dark">我的账户</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-dark">菜单</a>
+                        </li>
+                    </ul>
+                    <a href="#">
+                        <img src="./images/icon-hamburger.svg" alt="">
+                    </a>
+                </div>
+                <div class="d-flex align-items-center login">
+                    <div class="px-5">
+                        <h1 class="py-3">心情惬意，来杯咖啡吧 ☕</h1>
+                        <div class="d-none d-sm-block my-3">
+                            <a href="#">
+                                <img src="./images/icon-account.svg" alt="">
+                                <span>登录</span>
+                            </a>
+                            <a href="#" class="btn btn-outline-success ml-4 register">注册</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- 右边的内容 -->
+            <section class="col-lg-8 bg-light">
+                <div class="row">
+                    <div class="carousel slide" data-ride="carousel" id="demo">
+                        <!-- 指示符 -->
+                        <ul class="carousel-indicators">
+                            <li data-target="#demo" data-slide-to="0" class="active"></li>
+                            <li data-target="#demo" data-slide-to="1"></li>
+                            <li data-target="#demo" data-slide-to="2"></li>
+                            <li data-target="#demo" data-slide-to="3"></li>
+
+                        </ul>
+
+                        <!-- 轮播图片 -->
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="img-fluid" src="./images/kv1.jpg" alt="">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="img-fluid" src="./images/kv2.jpg" alt="">
+
+                            </div>
+                            <div class="carousel-item">
+                                <img class="img-fluid" src="./images/kv3.jpg" alt="">
+
+                            </div>
+                            <div class="carousel-item">
+                                <img class="img-fluid" src="./images/kv4.jpg" alt="">
+
+                            </div>
+                        </div>
+                        <!-- 左右切换按钮 -->
+                        <a class="carousel-control-prev" data-slide="prev" href="#demo">
+                            <span class="carousel-control-prev-icon"></span>
+                        </a>
+                        <a class="carousel-control-next" data-slide="next" href="#demo">
+                            <span class="carousel-control-next-icon "></span>
+                        </a>
+                    </div>
+                </div>
+                <div class="row py-4">
+                    <div class="col-sm-4 my-2 my-sm-0">
+                        <a href="#">
+                            <img class="img-fluid img-thumbnail" src="./images/img_01.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-sm-4 my-2 my-sm-0">
+                        <a href="#">
+                            <img class="img-fluid img-thumbnail" src="./images/img_02.jpg" alt="">
+                        </a>
+                    </div>
+                    <div class="col-sm-4 my-2 my-sm-0">
+                        <a href="#">
+                            <img class="img-fluid img-thumbnail" src="./images/img_03.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"
+        integrity="sha384-L2pyEeut/H3mtgCBaUNw7KWzp5n9+4pDQiExs933/5QfaTh8YStYFFkOzSoXjlTb"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

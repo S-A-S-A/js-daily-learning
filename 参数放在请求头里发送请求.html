@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    // 处理逻辑，将参数整理并放入this.headersData:
+        this.$axios.get('abc').then(res => {
+            const { state, result, message }= res.data;
+            let {token,domainUrl,siteId,language,subsystem,mainCpId,sonCpId}=result;
+            this.headerData = {token,domainUrl,siteId,language,subsystem,mainCpId,sonCpId};
+            for(const key in this.headerData){
+                //删除没有数据的值
+                if( this.headerData.hasOwnProperty(key)&&typeof(this.headerData[key])=='undefined'){
+                    delete this.headerData[key]  //删除时删除的不是键值，是键名
+                }
+            }
+        })
+
+        //获取cookie里的某一个字段
+        function getCookie(cookieName) {
+            var arrCookie = document.cookie.split(";");
+            for (var i = 0; i < arrCookie.length; i++) {
+                var arr = arrCookie[i].split("=");
+                if (cookieName == arr[0]) {
+                    return arr[1];
+                }
+            }
+            return "";
+        }
+
+        var uvsign = getCookie("uvsign")
+      
+      //将cookie转化为json对象
+      this.headerData['uvsign']=this.uvsign;
+      this.headerData['Content-Type']='application/json';
+
+        
+    </script>
+    <!--
+        现在有⼀个请求函数（vue项⽬），我们需要通过header传递⼀些参数，利⽤axios的headers 传递，如下所示。
+          getQueryNaturalTime() {
+               const that = this;
+                 this.$axios({
+                      method:'POST',
+                       url:'/dataDetailReport/view/queryNaturalTime',
+                        headers:this.headersData,
+                         data:{userId:this.userId }
+                 }).then(
+                      function(res) {
+                            const {state, result, message} = res.data;
+                            that.queryNaturalTime = result;
+                            that.startTime = result.last7day[0].startTime;
+                            that.endTime = result.last7day[0].endTime;
+                            that.getTendency(that.startTime, that.endTime);
+                      },
+                       function(res) {}
+
+                 );
+          },
+
+
+          我们需要先请求⼀个userinfo接⼝，获取要传递的数据信息。
+          需要的字段为：token,domainUrl,siteId,language,subsystem,mainCpId,sonCpId
+          我们还需要从cookie中获取⼀个叫uvsign的字段。
+          将这些数据存⼊headers中，并发送请求。
+          请实现⼀个fetch函数，完成参数的封装。
+          要求：
+             1：需要的字段，没有值的话，删除此字段，不传。
+             2：cookie的数据格式类似：'usename=2333;password=1234;'的字符串，需要提取
+             3：参数类型为 json
+             fetch(){
+                 this.$axios.get('/org/view/user_info.json').then(res=>{
+                     const {state, result, message} = res.data;
+                     if(!state) return this.$message.error(message ? message : '用户信息获取失败');
+                 
+                   
+                     处理逻辑，将参数整理并放入this.headersData
+
+
+                      this.getQueryNaturalTime();
+                 })
+
+
+
+    -->
+</body>
+
+</html>
