@@ -26,6 +26,9 @@
                 显示与隐藏：d-*
                 响应式图片：img-fluid      图片响应式
                            img-thumbnail  图片缩略图
+                定位：.position-relative/.position-absolute/.position-sticky(黏性定位)
+                宽度100%：w-100
+                清楚浮动：.clearfix
              -->
             <!-- 左边的内容 -->
             <section class="col-lg-4 border-right">
@@ -119,6 +122,110 @@
                         </a>
                     </div>
                 </div>
+                <!-- 星享俱乐部 -->
+                <div class="row py-5 bg-white justify-content-around align-items-center star">
+                    <div class="col-sm-5">
+                        <h2>星享俱乐部</h2>
+                        <p class="py-3 text-muted">开启您的星享之旅，星星越多、会员等级越高、好礼越丰富。<a href="#">了解更多 ›</a></p>
+                        <div>
+                            <button class="btn btn-outline-success btn-lg">注册</button>
+                            <button class="btn btn-outline-success btn-lg ml-2">登录</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 mt-5 mt-sm-0">
+                        <img class="img-fluid" src="./images/logo-msr-new.svg" alt="">
+                    </div>
+                </div>
+                <!-- 星巴克精选 -->
+                <div class="row pb-5 betters">
+                    <div class="text col-12 text-center">
+                        <h3 class="text-dark my-4">星巴克精选</h3>
+                        <p class="text-muted">在星巴克天猫旗舰店发现更多咖啡心意</p>
+                    </div>
+                    <ul class="row justify-content-around px-5">
+                        <li class="col-md-3 col-6">
+                            <a href="#" class="d-inline-block w-100 text-center px-2 rounded">
+                                <img class="img-fluid" src="./images/tmall-card-01.png" alt="">
+                                <h4 class="my-2 text-dark">会员星礼包</h4>
+                                <p class="mb-3 text-muted">星享卡新升级<br>更多心意好礼</p>
+                                <p class="caption">了解更多 ›</p>
+                            </a>
+                        </li>
+                        <li class="col-md-3 col-6">
+                            <a href="#" class="d-inline-block w-100 text-center px-2 rounded">
+                                <img class="img-fluid" src="./images/tmall-card-02.png" alt="">
+                                <h4 class="my-2 text-dark">会员星礼包</h4>
+                                <p class="mb-3 text-muted">星享卡新升级<br>更多心意好礼</p>
+                                <p class="caption">了解更多 ›</p>
+                            </a>
+                        </li>
+                        <li class="col-md-3 col-6">
+                            <a href="#" class="d-inline-block w-100 text-center px-2 rounded">
+                                <img class="img-fluid" src="./images/tmall-card-03.png" alt="">
+                                <h4 class="my-2 text-dark">会员星礼包</h4>
+                                <p class="mb-3 text-muted">星享卡新升级<br>更多心意好礼</p>
+                                <p class="caption">了解更多 ›</p>
+                            </a>
+                        </li>
+                        <li class="col-md-3 col-6">
+                            <a href="#" class="d-inline-block w-100 text-center px-2 rounded">
+                                <img class="img-fluid" src="./images/tmall-card-04.png" alt="">
+                                <h4 class="my-2 text-dark">会员星礼包</h4>
+                                <p class="mb-3 text-muted">星享卡新升级<br>更多心意好礼</p>
+                                <p class="caption">了解更多 ›</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 1912 派克街 | 咖啡星讲堂 -->
+                <div class="row bg-white teach">
+                    <div class="text col-12 text-center">
+                        <h3 class="text-dark my-4">1912 派克街 | 咖啡星讲堂</h3>
+                        <p class="text-muted">了解更多星巴克咖啡文化</p>
+                    </div>
+                    <div class="col-12">
+                        <div class="scroll clearfix pl-3">
+                            <ul>
+                                <li><a href="#"><img src="./images/scroll_img_01.jpg" alt="">
+                                        <span>咖啡知识</span>
+                                        <p>咖啡的起源与培植</p>
+                                    </a></li>
+                                <li><a href="#"><img src="./images/scroll_img_02.jpg" alt="">
+                                        <span>咖啡知识</span>
+                                        <p>咖啡的起源与培植</p>
+                                    </a></li>
+                                <li><a href="#"><img src="./images/scroll_img_03.jpg" alt="">
+                                        <span>咖啡知识</span>
+                                        <p>咖啡的起源与培植</p>
+                                    </a></li>
+                                <li><a href="#"><img src="./images/scroll_img_04.jpg" alt="">
+                                        <span>咖啡知识</span>
+                                        <p>咖啡的起源与培植</p>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- footer -->
+                <footer class="footer fixed-bottom bg-white d-sm-none">
+                       <ul class="row justify-content-around py-2">
+                           <li class="col-2 text-center"><a href="#" class="text-muted"><img src="./images/icon-home.svg" alt="" class="d-block mx-auto">
+                           <span>首页</span>
+                        </a></li>
+                        <li class="col-2 text-center"><a href="#" class="text-muted"><img src="./images/icon-stores.svg" alt="" class="d-block mx-auto">
+                            <span>门店</span>
+                         </a></li>
+                         <li class="col-2 text-center"><a href="#" class="text-muted"><img src="./images/icon-account.svg" alt="" class="d-block mx-auto">
+                            <span>我的账户</span>
+                         </a></li>
+                         <li class="col-2 text-center"><a href="#" class="text-muted"><img src="./images/icon-menu.svg" alt="" class="d-block mx-auto">
+                            <span>菜单</span>
+                         </a></li>
+                         <li class="col-2 text-center"><a href="#" class="text-muted"><img src="./images/icon-more.svg" alt="" class="d-block mx-auto">
+                            <span>更多</span>
+                         </a></li>
+                       </ul>
+                </footer>
             </section>
         </div>
     </div>
