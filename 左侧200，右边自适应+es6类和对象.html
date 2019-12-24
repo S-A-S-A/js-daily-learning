@@ -16,7 +16,7 @@
             height: 100%;
             width: 100%;
         } */
-        /* 第一种：float和margin */
+        /* 第一种：float/position和margin */
         /* .container {
             height: 500px;
 
@@ -35,7 +35,7 @@
             margin-left:200px; 
         
         } */
-        /* position: */
+        /*第二种：position+position: */
         /* .container {
             height: 600px;
             position: relative;
@@ -60,10 +60,10 @@
             right: 0;
         } */
 
-        /* bfc: */
+        /* 第三种: flex*/
           .container {
             height: 600px;
-            
+            display:flex;
       
         }
 
@@ -71,23 +71,16 @@
             width: 200px;
             height: 600px;
             background-color: red;
-            position: absolute;
-            left: 0px;
-            top: 0px;
+           
         }
 
         .right {
             height: 600px;
             background-color: blue;
-            /* position: absolute;
-            left: 200px;
-            top: 0px;
-            right: 0; */
-            /* overflow: hidden; */
-            display: flex;
-            /* flex: 1; */
-            margin-left: 200px;
+            flex: 1;  /*占满剩余*/
+            
         }
+        
     </style>
 </head>
 

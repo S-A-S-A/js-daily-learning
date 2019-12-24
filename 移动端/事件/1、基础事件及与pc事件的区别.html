@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+      #box{
+          width: 200px;
+          height: 200px;
+          background-color: blue;
+          color: #fff;
+          font-size: 50px;
+      }
+
+    </style>
+</head>
+<body>
+    <!-- 
+        基础事件：
+              touchstart：手指按下事件，类似mousedown
+              touchmove：手指移动事件，类似mousemove
+              touchend：手指抬起事件，类似mouseup
+              ps：移动端事件最好用事件监听函数来添加，不要用on添加
+     -->
+     <!-- 
+         区别：
+            1、触发点
+                  pc端
+                      mousemove   鼠标移动，不需要鼠标按下，但是必须要在元素上才能触发
+                      mouseup     必须要在元素上抬起才能触发
+                  移动端
+                      touchmove   必须手指按下才能触发，但是，按下后不在元素上也能触发
+                      touchend    不需要再元素上抬起就能触发
+            2、触发顺序
+                   touchstart->touchend->mousedown->click->mouseup
+                   (pc的事件在移动端里会有延迟，300ms左右)
+            3、touchstart与click的区别
+                    touchstart为手指碰到元素就触发，click为手指碰到元素并且抬起才会触发
+      -->
+     <div id="box">
+
+     </div>
+     <script>
+       var box=document.querySelector('#box');
+       box.addEventListener('touchstart',()=>{
+           console.log('按下')
+       });
+       box.addEventListener('touchmove',()=>{
+           console.log('滑动')
+       });
+       box.addEventListener('touchend',()=>{
+           console.log('抬起')
+       })
+     </script>
+</body>
+</html>
