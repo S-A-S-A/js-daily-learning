@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            color: #fff;
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        事件点透：
+             出现场景：有两层重叠的元素，上面的元素有touch事件（点击后要消失），下面是一个默认会触发click事件的元素（a、表单元素、带click事件的元素）
+             出现原理理解（自己）：点击上层元素时触发了touchstart事件，此时上层box马上消失，click事件手指按下并抬起才会发生，所以此时上层box消失，然后手指再抬起导致触发了底层的click事件，底层的click有300ms延迟，时间到后就执行了click事件
+             解决方案：
+                     1、下层元素不要用能点击的标签，并且不要给他们添加事件  =>与实际情况不太符合，一般遮罩层下面的页面上有跳转是很常见的事
+                     2、把上面元素的事件换成click   =>一般不在移动端使用click事件并且click事件在移动端存在延迟现象
+                     3、取消事件的默认动作    =>e.preventDefault()//此方法用于取消事件的默认动作
+     -->
+    <a href="http://www.baidu.com">度娘</a>
+    <input type="text">
+    <p>迪丽热巴</p>
+    <div id="box"></div>
+    <script>
+        // 问题写法：
+        // const p = document.querySelector('p');
+        // p.addEventListener('click', () => {
+        //     alert('p被点击了')
+        // });
+        // const box = document.querySelector('div');
+        // box.addEventListener('touchstart', () => {
+        //     box.style.display = 'none';
+        // })
+  
+        // 解决方案写法
+        const p = document.querySelector('p');
+        p.addEventListener('click', () => {
+            alert('p被点击了')
+        });
+        const box = document.querySelector('div');
+        box.addEventListener('touchstart', e => {
+            box.style.display = 'none';
+            e.preventDefault()   //此方法用于取消事件的默认动作
+        })
+    </script>
+</body>
+
+</html>
