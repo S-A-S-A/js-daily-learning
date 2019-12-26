@@ -41,7 +41,7 @@
 
      <!-- 
          解决chrome中e.preventDefault()方法不起作用的问题：
-           1、在window、body、document中使用e.preventDefault()，可在e.preventDefault()的回调中添加第三个参数，此参数为一个对象：{passive:false}
+           1、在window、body、document中使用e.preventDefault()，可在有e.preventDefault()的函数的回调中添加第三个参数，此参数为一个对象：{passive:false}
            2、给整个页面添加一个父级，给这个父级添加e.preventDefault()则能够使用，不需要添加第三个参数（推荐使用！！！！）
         -->
      <div class="page">

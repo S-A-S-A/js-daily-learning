@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+     body{
+         margin: 0;
+     }
+     ul{
+         margin: 0;
+         padding: 0;
+         list-style: none;
+     }
+     #wrap{
+         height: 100vh;
+         overflow: hidden;
+         border: 5px solid red;
+         box-sizing: border-box;
+     }
+     #list{
+         transition: 0.3s;
+     }
+     #list li{
+         font-size: 24px;
+         line-height: 50px;
+     }
+    </style>
+    <script src="./js/transform.js"></script>
+</head>
+<body>
+    <div id="wrap">
+        <ul id="list">
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+            <li><a href="#">这是一个很长很长的列表</a></li>
+        </ul>
+    </div>
+    <!-- 
+        滑屏的原理：（类似js中的拖拽）
+               首先要知道按下时的坐标，再需要获取移动时的坐标，两个坐标之间的差就是元素移动的距离，拿元素按下时的距离+手指移动的距离
+     -->
+     <script>
+       var wrap=document.querySelector('#wrap'),
+           list=document.querySelector('#list');
+        let startPointY=0,    //按下时手指的坐标
+            startTop=0,        //按下时元素的坐标
+            movePointY=0;       //手指移动时的坐标
+
+         Transform(list)       //使用第三方的库，在一上来的时候设置一下初始的距离
+
+         wrap.addEventListener('touchstart',e=>{
+             startPointY=e.changedTouches[0].pageY ;         //按下时获取手指的坐标
+             startTop=list.translateY;
+         });
+         wrap.addEventListener('touchmove',e=>{
+             //坐标移动的距离=当前的距离-按下时的距离
+             movePointY=e.changedTouches[0].pageY -startPointY;         
+
+             //元素走到的位置=按下时元素的距离+坐标移动的距离 
+             list.translateY=startTop+movePointY
+
+             e.preventDefault()
+         });
+     </script>
+</body>
+</html>

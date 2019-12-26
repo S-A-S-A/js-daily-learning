@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    body{
+        margin: 0;
+    }
+    #banner{
+        position: relative;
+        width: 100vw;
+        overflow: hidden;
+    }
+    .wrap{
+        width: 300vw;
+        display: flex;
+    }
+    .wrap a{
+        width: 100vw;
+    }
+
+    .wrap a img{
+        width: 100%;
+        vertical-align: center;
+    }
+    .circle{
+        position: absolute;
+        bottom: 3vw;
+        width: 100vw;
+        display: flex;
+        justify-content: center;
+    }
+    .circle span{
+        width: 4vw;
+        height: 4vw;
+        background-color: #DDD;
+        border-radius: 50%;
+        margin: 0 1.5vw;
+    }
+    .circle span.active{
+        background-color: green;
+    }
+    </style>
+    <script src="./js/transform.js"></script>
+</head>
+
+<body>
+    <section id="banner">
+        <div class="wrap">
+            <a href="#"><img src="./images/banner_01.jpg" alt=""></a>
+            <a href="#"><img src="./images/banner_02.jpg" alt=""></a>
+            <a href="#"><img src="./images/banner_03.jpg" alt=""></a>
+
+        </div>
+        <div class="circle">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+
+        </div>
+    </section>
+    <script>
+    var banner=document.querySelector('#banner'),
+        wrap=document.querySelector('.wrap'),
+        spans=document.querySelector('.circle span');
+        let startPointX=0;   //按下时手指的坐标
+            disPointX=0;    //手指坐标的差
+            startEleX=0;   //按下时元素的位置
+
+            Transform(wrap);
+
+            banner.addEventListener('touchstart',e=>{
+                startPointX=e.changedTouches[0].pageX;
+                startEleX=wrap.translateX;
+            })
+            banner.addEventListener('touchmove',e=>{
+                disPointX=e.changedTouches[0].pageX-startPointX;
+                wrap.translateX=startEleX+disPointX
+            })
+    </script>
+</body>
+
+</html>

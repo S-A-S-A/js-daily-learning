@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 300px;
+            height: 400px;
+            background-color: blue;
+            color: #fff;
+            font-size: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        事件对象：
+           touches：  位于当前屏幕上的所有手指列表（必须至少有1个手指在添加触发事件的元素上）
+
+           targetTouches： 位于当前dom元素上的手指列表
+
+           changeTouches： 触发当前事件的手指列表
+     -->
+
+    <!-- 
+         target: div   点击的目标
+         screenX: 344   相对于屏幕左边  
+         screenY: 301
+         clientX: 91.25   相对于可视区，点击位置距离可视区左边的距离（不算滚动距离）
+         clientY: 163.75   相对于可视区，点击位置距离可视区上边的距离（不算滚动距离）
+         pageX: 91.25   相对于html文档的一个距离（要包括滚动距离）
+         pageY: 163.75
+         radiusX: 14.375   x轴触摸面积的半径
+         radiusY: 14.375
+         rotationAngle: 0    旋转角度
+         identifier: 0    手指每次点击的唯一标识，从触摸到移动这个过程唯一标识都不会变
+         force: 1   压力大小（手指按压力度，手机需要有压力感应）取值范围为0.0~1.0，0表示没有压力，1表示压力最大
+      -->
+    <div></div>
+    <script>
+        const div = document.querySelector('div');
+        div.addEventListener('touchstart', e => {
+            div.innerHTML=e.touches.length
+        })
+
+    </script>
+</body>
+
+</html>
