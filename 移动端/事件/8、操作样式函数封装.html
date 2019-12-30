@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            transform: rotate(60deg) scale(0.5) translateY(100px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <script>
+        /* 
+           css(box,{width:300,opacity:0.5});设置
+           css(box,'width');  获取
+           let transformAttr=['rotate','rotateX','rotateY','rotateZ','skewX','skewY','scale','scaleX','scaleY','translateX','translateY','translateZ']
+        */
+        const css = (el, attr, value) => {
+
+            let transformAttr = ['rotate', 'rotateX', 'rotateY', 'rotateZ', 'skewX', 'skewY', 'scale', 'scaleX', 'scaleY', 'translateX', 'translateY', 'translateZ']
+
+
+            const type = o => {
+                let str = Object.prototype.toString.call(o);
+                return str.match(/\[object (.*)\]/)[1].toLowerCase();
+            }
+
+            //true：获取   false：设置
+            const getOrSet = type(attr) == 'object' ? false : true;   //用来检测用户到底要做哪种操作
+
+            if (getOrSet) {
+                //要做的事情是获取（第二个参数为字符串）
+                if (transformAttr.includes(attr)) {  //a.includes(b)代表a这个数组里是否有b这个值，如果为真的话代表要获取css3的属性
+                    return transform();
+                } else {
+                    //获取css2的属性
+                    return parseFloat(getComputedStyle(el)[attr]);
+
+                }
+            } else {
+                //要做的事情是设置（第二个参数为对象）
+                const attrKeys = Object.keys(attr);//keys()把用户要设置的属性名存到一个数组里
+
+                for (let v of attrKeys) {
+                    el.style[v] = v == 'opacity' ? attr[v] : attr[v] + 'px';
+                }
+
+                //设置css3的属性
+                transform(attrKeys);  //把用户要设置的所有属性的名字作为参数传进去
+            }
+
+            //获取以及设置css3的属性
+            function transform(attrKeys) {
+                //el.transform={}; //用来存储用户已经设置过的所有css3的属性
+
+                if (!el.transform) {   //如果是第一次进来的话，元素身上是没有这条属性的，那就需要给它设置上这个属性
+                    el.transform = {}
+                }
+
+                //获取
+                if (getOrSet) {         //此时用户传的第二个参数为字符串
+                    
+                    //如果用户没有设置过某个属性，那去获取时就会得到一个undefined。解决方法：需要先判断一下这条属性有没有被设置过，如果没有被设置过的话，就需要给他返回一个默认值
+                    if(!Object.keys(el.transform).includes(attr)){   //表示没有设置过css3的属性
+                        if(attr=='scale'){     //scale与其他属性的默认值不一样，为1，所以需要判断一下
+                            return 1;
+                        }else{
+                            return 0
+                        }
+                    }
+                    return el.transform[attr]
+                }
+
+                //当代码走到这里的时候，代表要设置属性
+                for (let v of attrKeys) {  //这一步是把用户要设置的所有属性存到el.transform
+                    el.transform[v] = attr[v]
+                }
+
+                //下面才是真正给元素身上添加属性
+                /*
+                    旋转角度：rotate    单位：deg
+                    倾斜角度：skew      单位：deg
+                    缩放：    scale
+                    移动距离：translate 单位：px
+                */
+
+                let str = '';   //用来拼接所有要设置的属性      transform: rotate(60deg) scale(0.5) translateY(100px);
+                for (let v of attrKeys) {
+                    switch (v) {
+                        case 'rotate':
+                        case 'rotateX':
+                        case 'rotateY':
+                        case 'rotateZ':
+                        case 'skewX':
+                        case 'skewY':
+                            //str+='rotate(60deg)'
+                            str += v + `(${el.transform[v]}deg) `;
+                            break;      //只有是上述rotate和skew几个属性，才会走str+=并break这一步，如果不是这几个其中之一，跳过str+=和break，继续往下看
+
+                        case 'scale':
+                        case 'scaleX':
+                        case 'scaleY':
+                            str += v + `(${el.transform[v]}) `;
+                            break;
+
+                        case 'translate':
+                        case 'translateX':
+                        case 'translateY':
+                        case 'translateZ':
+                            str += v + `(${el.transform[v]}px) `;
+                            break;
+                    }
+                }
+                el.style.transform = str
+            }
+        }
+        const box=document.querySelector('.box');
+        console.log(css(box,'opacity'),css(box,'scale'))
+
+        css(box,{width:100,opacity:0.2,scale:2});
+        console.log(css(box,'opacity'),css(box,'scale'))
+
+        
+        console.log(css(box,'translateX'),css(box,'rotate'))
+    </script>
+</body>
+
+</html>
