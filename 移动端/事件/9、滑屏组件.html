@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+
+        }
+
+        #wrap {
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* .list{
+         height: 100vh;
+         overflow: hidden;
+         background-color: #ccc;
+         border: 1px solid #f00;
+         box-sizing: border-box;
+     }
+     .list li{
+         font-size: 30px;
+         line-height: 40px;
+     } */
+        .banner {
+            height: 20vh;
+            box-sizing: border-box;
+            border: 1px solid #00f;
+            overflow: hidden;
+        }
+
+        .banner ul {
+            width: 400vw;
+            height: 100%;
+        }
+
+        .banner li {
+            height: 100%;
+            float: left;
+            box-sizing: border-box;
+            border-right: 1px solid #fff;
+        }
+
+        .banner ul li a {
+            display: block;
+            width: 100vw;
+            height: 100%;
+            text-align: center;
+            font-size: 50px;
+            color: #fff;
+            background-color: #232323;
+        }
+
+        .list {
+            height: 80vh;
+            overflow: hidden;
+            background-color: #ccc;
+            border: 1px solid #f00;
+            box-sizing: border-box;
+        }
+
+        .list li {
+            font-size: 30px;
+            line-height: 40px;
+        }
+    </style>
+    <script src="./js/css.js"></script>
+</head>
+
+<body>
+    <!-- 
+        swiper({
+            wrap:父级元素，
+            dir：拖动的方向，‘x’=>左右滑，‘y’上下滑,
+            start(){
+                //手指按下时的回调函数
+            }，
+            end(){
+                //手指抬起后的回调函数
+            }
+        })
+     -->
+
+    <!--
+          解决问题1：ios需区分横竖屏滑动（ios能斜着划，安卓没有这个问题）
+              解决方案一：直接取消事件默认动作，缺点是会带来一系列取消事件默认动作带来的问题
+              解决方案二：原理还是取消事件默认动作，但是可以给它设置一系列条件，当这些条件都满足，才能取消事件默认动作
+                         此方案需要考虑两个条件：1、用户滑动方向，区分横竖屏
+                                               2、需知道用户是否是第一次滑动
+          解决问题2：解决安卓下误触（，低版本安卓下存在，ios不存在）
+              解决方案：加一个判断条件：手指按下坐标等于手指移动坐标，则代表用户本意是点击而不是滑动
+        -->
+
+
+    <!-- <div id="wrap">
+         <div class="list">
+             <ul>
+                 <li><a href="#">这是一个很长很长的列表0</a></li>
+             </ul>
+         </div>
+     </div> -->
+    <div id="wrap">
+        <div class="banner">
+            <ul>
+
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+            </ul>
+        </div>
+        <div class="list">
+            <ul></ul>
+        </div>
+    </div>
+
+    <script>
+        //生成内容
+        const ul = document.querySelector('.list ul');
+        for (let i = 1; i <= 30; i++) {
+            let li = document.createElement('li');
+            li.innerHTML = `<a href="#">这是一个很长很长的列表${i}</a>`;
+            ul.appendChild(li)
+        }
+        const swiper = ({ wrap, dir = 'y', start, end }) => {
+            const scroll = wrap.children[0]; //要滚动的元素
+            let startPoint = {},  //手指按下的位置
+                startEle = {},
+                distance = {},    //移动的距离
+                targetEle = {},    //元素拖动时候的位置
+                isDir = {          //用来决定用户现在拖动的方向
+                    x: false,
+                    y: false
+                },
+                isFirstMove = true,   //用户是否为第一次滑动
+                curPoint = {},         //当前次手指坐标
+                lastPoint = {};      //上一次手指坐标
+
+
+            wrap.addEventListener('touchstart', e => {
+                start && start.call(wrap, e)   //按下时的回调函数，将start内部的this指向改成指向wrap
+                startPoint = {
+                    x: e.changedTouches[0].pageX,
+                    y: e.changedTouches[0].pageY
+                };
+
+                //在手指一上来按下的时候就需要更新一下lastPoint的值
+                lastPoint = {
+                    x: e.changedTouches[0].pageX,
+                    y: e.changedTouches[0].pageY
+                };
+
+                startEle = {
+                    x: css(scroll, 'translateX'),
+                    y: css(scroll, 'translateY')
+                };
+            });
+
+
+            wrap.addEventListener('touchmove', e => {
+                 //当前移动的左边需要在这里更新
+                 curPoint = {
+                    x: e.changedTouches[0].pageX,
+                    y: e.changedTouches[0].pageY
+                };
+                
+                if(lastPoint.x==curPoint.x&&lastPoint.y==curPoint.y){
+                    //如果上一次的坐标和这一次的坐标是一样的，说明现在手指并没有移动，即不会执行以下拖动的代码，直接return。这种情况可以认为用户是误触
+                     return;
+                }
+                distance = {    //拖动的距离
+                    x: e.changedTouches[0].pageX - startPoint.x,
+                    y: e.changedTouches[0].pageY - startPoint.y
+                };
+
+                targetEle = {
+                    x: startEle.x + distance.x,
+                    y: startEle.y + distance.y
+                };
+
+                if (isFirstMove) {        //先判断用户是否为第一次拖动
+                    if (Math.abs(distance.x) > Math.abs(distance.y)) {   //左右方向拖动
+                        isDir.x = true;
+                        isDir.y = false;
+                        isFirstMove = false;
+                    } else {
+                        isDir.x = false;
+                        isDir.y = true;
+                        isFirstMove = false;
+
+                    }
+                }
+
+
+                if (isDir[dir]) {   //根据方向的布尔值去设置移动
+
+                    //要根据用户传入的dir参数决定现在往哪个方向走
+                    //['translate'+dir.toUpperCase()]  es6里面的属性名表达式
+                    css(scroll, { ['translate' + dir.toUpperCase()]: targetEle[dir] });
+                    e.preventDefault();
+                }
+ 
+               //在最后的时候需要把上一次的坐标更新成当前次的坐标
+               lastPoint.x=curPoint.x;
+               lastPoint.y=curPoint.y;
+            });
+
+
+            wrap.addEventListener('touchend', e => {
+                end && end.call(wrap, e)   //抬起时的回调函数
+
+                //把上现在的设置在手指抬起的时候还原来默认值，保证下一次能够正常使用
+                isFirstMove = true;
+                isDir = {
+                    x: false,
+                    y: false
+                }
+            });
+        }
+
+        //list
+        const list = document.querySelector('.list');
+        swiper({
+            wrap: list,
+            start() {
+                console.log('手指按下了');
+            },
+            end() {
+                console.log('手指抬起了')
+            }
+        })
+
+        //banner
+        const banner = document.querySelector('.banner');
+        swiper({
+            wrap: banner,
+            dir: 'x'
+        })
+    </script>
+</body>
+
+</html>
