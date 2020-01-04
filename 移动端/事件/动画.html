@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   <style>
+     div{
+         width: 100px;
+         height: 100px;
+         background-color: green;
+         
+     }
+   </style>
+   <script src="./js/tween.js"></script>
+</head>
+<body>
+    <!-- 
+        transition:
+        animation:
+        定时器：
+        requestAnimationFrame(callback)   由浏览器专门为动画提供的API
+                1、参数为回调函数
+                2、函数有个返回值，为编号（与定时器一样），用于清除动画
+                cancelAnimationFrame(返回值)    清楚动画
+                问题：调用一次走一次
+                      Android4.4版本需要加前缀，4.4以上的版本不需要加（4.4还有很少一部分人用）
+                注意：它们是window身上的方法
+        Tween.js（第三方库）
+     -->
+
+
+     <!-- 关于cancelAnimationFrame的使用 -->
+
+     <!-- <div style="background-color: lightblue;width: 0;height: 20px;">0%</div>
+     <button>走你</button>
+     <script>
+        const div=document.querySelector('div'),
+              btn=document.querySelector('button');
+
+        let timer=null;
+       btn.onclick=()=>{
+         //避免多次调用。每次点击都从头开始
+         div.style.width=0;
+         cancelAnimationFrame(timer);    
+
+        timer= requestAnimationFrame(function fn(){
+            move();
+            timer=requestAnimationFrame(fn);
+            if(div.offsetWidth>=500){
+                cancelAnimationFrame(timer);       //关闭
+            }
+        });
+        
+       }
+
+       function move(){
+           div.style.width=div.offsetWidth+5+'px';            //offsetWidth:元素宽度+内边距padding+边border
+           div.innerHTML=div.offsetWidth/5+'%';
+       }
+     </script> -->
+
+     <!-- 关于Tween.js的使用 -->
+       <div></div>
+       <button>走你</button>
+       <script>
+           const div=document.querySelector('div'),
+                 btn=document.querySelector('button');
+            let t=0,  //time，当前时间，这里为0，表示从0开始
+                b=0,  //begin，初始值，元素一开始的位置
+                c=200,  //count，运动200px
+                d=100;  //duration，整个运动的持续时间
+            btn.onclick=()=>{
+                setInterval(function(){
+                  t++;
+                 const result=Tween['linear'](t,b,c,d);
+                 div.style.transform=`translateX(${result}px)`;
+                })
+            }
+       </script>
+</body>
+</html>
