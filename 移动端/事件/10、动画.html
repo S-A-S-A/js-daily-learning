@@ -23,7 +23,7 @@
         requestAnimationFrame(callback)   由浏览器专门为动画提供的API
                 1、参数为回调函数
                 2、函数有个返回值，为编号（与定时器一样），用于清除动画
-                cancelAnimationFrame(返回值)    清楚动画
+                cancelAnimationFrame(返回值)    清除动画
                 问题：调用一次走一次
                       Android4.4版本需要加前缀，4.4以上的版本不需要加（4.4还有很少一部分人用）
                 注意：它们是window身上的方法
@@ -41,7 +41,7 @@
 
         let timer=null;
        btn.onclick=()=>{
-         //避免多次调用。每次点击都从头开始
+         //避免多次调用。使每次点击都从头开始
          div.style.width=0;
          cancelAnimationFrame(timer);    
 

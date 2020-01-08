@@ -182,10 +182,10 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 		curPoint={},
 		lastPoint={},
 
-		lastDistance=0,
-		lastTime=0,
-		nowTime=0,
-		lastTimeDistance=0,
+		lastDistance=0,   //最后一次拖动的距离（当前的坐标-上一次的坐标）
+		lastTime=0,       //上一次的时间点
+		nowTime=0,        //当前次的时间点
+		lastTimeDistance=0,  //最后一次拖动，所需要的时间（当前的时间-上一次的时间）
 
 		//存储元素能够走的最小值
 		minDistance={
@@ -231,8 +231,8 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 			y:wrap.offsetHeight-scroll.offsetHeight,
 		}
 
-		lastTime=Date.now();
-		lastDistance=0;
+		lastTime=Date.now();    //在按下的时候，给lastTime赋值
+		lastDistance=0;         //按下时需清空上一次滑动留下的距离，否则拖动松开后点击页面，页面照样走
 
 		//如果滚动的内容有增加，就需要重新计算一下滚动条的值
 		if(dir=='x'){	//横向的滚动条
@@ -256,7 +256,7 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 	});
 
 	wrap.addEventListener('touchmove',ev=>{
-		nowTime=Date.now();
+		nowTime=Date.now();   //在移动的时候，给nowTime赋值
 		curPoint={
 			x:ev.changedTouches[0].pageX,
 			y:ev.changedTouches[0].pageY
@@ -300,15 +300,17 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 			css(scroll,{['translate'+dir.toUpperCase()]:targetEle[dir]});
 			css(bar,{['translate'+dir.toUpperCase()]:-targetEle[dir]*scale});
 
-			lastDistance=curPoint[dir]-lastPoint[dir];
-			lastTimeDistance=nowTime-lastTime;
+			 //在移动的时候，算出最后一次移动的距离以及移动这段距离所需要的时间
+			lastDistance=curPoint[dir]-lastPoint[dir];  //算出最后一次移动的距离
+			lastTimeDistance=nowTime-lastTime;     //算出最后一次移动的距离所需要的时间
 
 			ev.preventDefault();
 		}
 		
 		lastPoint.x=curPoint.x;
 		lastPoint.y=curPoint.y;
-		lastTime=nowTime;
+		lastTime=nowTime;      //用完以后一定要把当前次时间赋给上一次
+		
 	});
 
 	wrap.addEventListener('touchend',ev=>{
@@ -319,15 +321,17 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 			y:false
 		}
 
-		if(Date.now()-lastTime>100){
+		 //在抬起的时候给一个时间点的判断，用于知道用户是否要做一个扔的动作
+		if(Date.now()-lastTime>100){   //这个条件成立说明现在用户最后一次已经停了，不再做扔的动作
 			lastDistance=0;
 		}
 
+		//添加缓冲
 		let lastSpeed=lastDistance/lastTimeDistance;
-		lastSpeed=lastSpeed?lastSpeed:0;
+		lastSpeed=lastSpeed?lastSpeed:0;    //如果手指从其他地方划过来（不会触发touchstart）或者是点击了一次（不会触发touchmove），就不会触发相应的赋值，就会出现NAN的值，这里用三目就是为了把NAN换成0，保证运算不会出错
 
-		let buffer=lastSpeed*200;
-		let target=Math.round(buffer+css(scroll,'translate'+dir.toUpperCase()));
+		let buffer=lastSpeed*200;   //要缓冲的距离
+		let target=Math.round(buffer+css(scroll,'translate'+dir.toUpperCase()));    //要走到的距离=当前的距离+缓冲的距离
 
 		if(target>0){
 			if(target>40){	//现在到顶部了，并且已经超过顶部50px了，这个时候一松手就可以刷新了
