@@ -226,7 +226,7 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 		}
 
 		//在按下的时候给声明的范围赋值
-		minDistance={
+		minDistance={           //可以滑动的最小值，用显示屏容器宽高-滑动容器宽高，得出一个负值，即为滑动块可以向上移动的最大距离，如果得出的值比这个负值还小，说明已经到达甚至超过滑动块可到达的最底部，则要分情况讨论是要做回弹还是禁止继续滑动
 			x:wrap.offsetWidth-scroll.offsetWidth,
 			y:wrap.offsetHeight-scroll.offsetHeight,
 		}
@@ -286,14 +286,15 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 
 
 		if(isDir[dir]){
-			if(backOut=='none'){
+			//在这里要添加拖动的范围限制
+			if(backOut=='none'){    //不让用户再次拖动
 				targetEle[dir]=targetEle[dir]>0?0:targetEle[dir];
 				targetEle[dir]=targetEle[dir]<minDistance[dir]?minDistance[dir]:targetEle[dir];
-			}else if(backOut=='back'){
-				if(targetEle[dir]>0){
-					targetEle[dir]*=0.3;
-				}else if(targetEle[dir]<minDistance[dir]){
-					let dis=minDistance[dir]-targetEle[dir];
+			}else if(backOut=='back'){     //用户添加了拉力回弹
+				if(targetEle[dir]>0){    //现在拖到了头部
+					targetEle[dir]*=0.3;        //使回弹的距离越来越小，即每次回弹的距离都会乘以一个小于1的数字，所以这个距离会越来越小，直到目标移动距离targetEle[dir]不再满足判断条件
+				}else if(targetEle[dir]<minDistance[dir]){    //现在拖到了底部
+					let dis=minDistance[dir]-targetEle[dir];   //底部出现的空白区域的值
 					targetEle[dir]=minDistance[dir]-dis*0.3;
 				}
 			}
@@ -333,6 +334,7 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 		let buffer=lastSpeed*200;   //要缓冲的距离
 		let target=Math.round(buffer+css(scroll,'translate'+dir.toUpperCase()));    //要走到的距离=当前的距离+缓冲的距离
 
+		//限制范围的拖动，在手指抬起的时候需要取消掉缓冲
 		if(target>0){
 			if(target>40){	//现在到顶部了，并且已经超过顶部50px了，这个时候一松手就可以刷新了
 				toTop&&toTop.call(wrap,ev);
