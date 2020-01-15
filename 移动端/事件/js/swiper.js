@@ -207,7 +207,7 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 
 	
 	wrap.addEventListener('touchstart',ev=>{
-		cancelAnimationFrame(scroll.timer);
+		cancelAnimationFrame(scroll.timer);   //加上这条是为了，元素正在滑动的时候手指按下，立马要停止滑动
 		start&&start.call(wrap,ev);
 
 		startPoint={
@@ -234,7 +234,7 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 		lastTime=Date.now();    //在按下的时候，给lastTime赋值
 		lastDistance=0;         //按下时需清空上一次滑动留下的距离，否则拖动松开后点击页面，页面照样走
 
-		//如果滚动的内容有增加，就需要重新计算一下滚动条的值
+		//如果滚动的内容有增加，就需要重新计算一下滚动条的值。一般放在数据加载完成的回调函数中，此处写在鼠标按下时，其实不是很严谨
 		if(dir=='x'){	//横向的滚动条
 			scale=wrap.clientWidth/scroll.offsetWidth;
 			bar.style.width=scale*wrap.clientWidth+'px';
@@ -299,7 +299,7 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 				}
 			}
 			css(scroll,{['translate'+dir.toUpperCase()]:targetEle[dir]});
-			css(bar,{['translate'+dir.toUpperCase()]:-targetEle[dir]*scale});
+			css(bar,{['translate'+dir.toUpperCase()]:-targetEle[dir]*scale});  //让滑块走起来
 
 			 //在移动的时候，算出最后一次移动的距离以及移动这段距离所需要的时间
 			lastDistance=curPoint[dir]-lastPoint[dir];  //算出最后一次移动的距离
@@ -336,8 +336,8 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 
 		//限制范围的拖动，在手指抬起的时候需要取消掉缓冲
 		if(target>0){
-			if(target>40){	//现在到顶部了，并且已经超过顶部50px了，这个时候一松手就可以刷新了
-				toTop&&toTop.call(wrap,ev);
+			if(target>40){	//现在到顶部了，并且已经超过顶部40px了，这个时候一松手就可以刷新了
+				toTop&&toTop.call(wrap,ev);//toTop()是一个代表滚动到页面头部的回调函数
 			}	
 			target=0;
 		}else if(target<minDistance[dir]){
@@ -355,10 +355,10 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 				move&&move.call(wrap,ev);
 			},
 			callBack(){
-				//当缓冲走完了的时候才是加载数据的时候，但是需要判断是不是走到底部了
+				//当缓冲走完了的时候才是加载数据的时候，但是需要判断是不是走到底部了（因为头部的缓冲走完了也会触发这个函数）
 				if(target==minDistance[dir]){	//这个条件成立代表现在缓冲是到了底部了
 					//console.log(1);
-					toEnd&&toEnd.call(wrap,ev);
+					toEnd&&toEnd.call(wrap,ev);  //toEnd()是一个代表滚动到页面底部的回调函数
 				}
 				over&&over.call(wrap,ev);
 			}

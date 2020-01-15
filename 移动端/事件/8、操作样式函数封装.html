@@ -94,7 +94,7 @@
                 */
 
                 let str = '';   //用来拼接所有要设置的属性      transform: rotate(60deg) scale(0.5) translateY(100px);
-                for (let v of attrKeys) {
+                for (let v in attrKeys) {
                     switch (v) {
                         case 'rotate':
                         case 'rotateX':
