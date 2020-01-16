@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: blueviolet;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        gesTure({
+            el:要添加事件的元素，
+            start(){       //对应gusturestart
+                
+                //按下时要操作的事件
+            },
+            change(){      //对应gesturechange
+
+               //手指移动时的回调
+               //el.rotation   start与move的手指旋转角度的差值
+               //el.scale      start与move的手指间的距离的比值
+            },
+            end(){        //对应gestureend
+
+                //手指抬起时的回调
+            }
+
+        })
+     -->
+    <div class="box">kasdaaffau</div>
+    <script>
+        const gesTure = ({ el, start, change, end }) => {
+            let isGesture = false;         //用户是否要做手势事件
+            let startPointDis = 0;         //按下时两个点之间的距离
+            let startPointDeg = 0;         //按下时两个点之间的角度
+
+
+            el.addEventListener('touchstart', ev => {
+                const touch = ev.touches;   //获得位于当前屏幕上的所有手指列表
+                if (touch.length >= 2) {      //这个条件代表当前屏幕上有2根及以上的手指
+                    isGesture = true;
+
+                    startPointDis = getPointDis(touch[0], touch[1],distance);    //按下时两个手指之间的距离
+
+                    startPointDeg = getPointDeg(touch[0], touch[1],angle);    //在按下时获取一下旋转的角度
+
+                    start && start.call(el, ev);
+                }
+            });
+
+            el.addEventListener('touchmove', ev => {
+                const touch = ev.touches;   //获得位于当前屏幕上的所有手指列表
+                if (touch.length >= 2 && isGesture) {      //这个条件代表当前屏幕上有2根及以上的手指以及用户确实要做手势操作
+
+                    const movePointDis = getPointDis(touch[0], touch[1],distance);    //移动时两个手指之间的距离
+                    el.scale = movePointDis / startPointDis;    //移动的时候与按下的时候两根手指距离的比值
+
+                    const movePointDeg = getPointDis(touch[0], touch[1],angle);    //移动时两个手指之间的角度
+                    el.rotation = movePointDeg - startPointDeg;
+
+
+                    change && change.call(el, ev);
+                }
+            });
+
+            el.addEventListener('touchend', ev => {
+
+                if (isGesture) {
+
+                    end && end.call(el, ev);
+                }
+                isGesture = false;
+            });
+            //求两点间的距离以及度数
+            function getPointDis(p1, p2, type) {
+                let x = p2.pageX - p1.pageX;
+                let y = p2.pageY - p1.pageY;
+
+                switch (type) {
+                    case 'distance':
+                        return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+                        break;
+                    case 'angle':
+                    //Math.atan2()的计算方式：先拿第二个参数的x，y轴分别减去第一个参数的x，y轴的值，得出的是一个坐标。这个坐标与x轴之间的旋转度数就是两条边之间的旋转度的差值。如果这个坐标在x轴的上方，按逆时针旋转，值为负值。如果这个坐标在x轴的下方，按顺时针旋转，值为正值
+                        return Math.atan2(y,x)*180/Math.PI;   //Math.atan2()得出的是一个弧度，需再处理得出一个角度:弧度*180/Math.PI
+                        break;
+                }
+            }
+        }
+        const box = document.querySelector('.box');
+        gesTure({
+            el: box,
+            start() {
+                //    box.innerHTML='两个及以上手指按下了';
+            },
+            change() {
+                box.innerHTML = box.scale;
+            },
+            end() {
+                box.innerHTML = '两个及以上手指抬起了';
+            }
+        })
+    </script>
+</body>
+
+</html>
