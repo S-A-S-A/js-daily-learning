@@ -419,8 +419,8 @@ const gesTure=({el,start,change,end})=>{
 		startPointDis=0,
 		startPointDeg=0,
 
-		lastScale=1,
-		lastRotate=0;
+		lastScale=1,    //上一次的缩放值
+		lastRotate=0;    //上一次的旋转值
 
 		//在一上来的时候给他们一个默认值，为了避免在别的地方使用它们的时候没有值，就会出问题了
 		el.scale=1;
@@ -441,6 +441,7 @@ const gesTure=({el,start,change,end})=>{
 		if(touch.length>=2){
 			isGesture=true;
 
+			//用户按下的时候，就可以获取到上一次的旋转度数和缩放比例
 			lastScale=css(el,'scale');
 			lastRotate=css(el,'rotate');
 
@@ -477,10 +478,10 @@ const gesTure=({el,start,change,end})=>{
 			isGesture=true;
 
 			const movePointDis=getPointDis(touch[0],touch[1],'distance');
-			el.scale=movePointDis/startPointDis*lastScale;
+			el.scale=movePointDis/startPointDis*lastScale;    //因为缩放时倍数关系，所以要拿这次的值与上一次的值相乘
 
 			const movePointDeg=getPointDis(touch[0],touch[1],'angle');
-			el.rotation=movePointDeg-startPointDeg+lastRotate;
+			el.rotation=movePointDeg-startPointDeg+lastRotate;    //度数并非倍数关系，应该相加
 
 
 			change&&change.call(el,ev);
@@ -509,7 +510,7 @@ const gesTure=({el,start,change,end})=>{
 
 	el.addEventListener('touchend',ev=>{
 		if(isGesture){
-
+           //在手指抬起的时候添加一个缩放的范围
 			if(el.scale>2){
 				tweenMove({
 					el:el,
@@ -519,7 +520,7 @@ const gesTure=({el,start,change,end})=>{
 					time:200,
 					type:'easeInStrong',
 					callBack(){
-						el.scale=2;
+						el.scale=2;    //因为运动的是元素身上的scale样式，但是它身上的scale是没有变的，所以在运动完以后也要让这个scale属性的值更新一下
 					}
 				});
 			}
