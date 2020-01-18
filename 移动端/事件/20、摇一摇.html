@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .box div {
+            width: 100%;
+            height: 100px;
+            background-color: blueviolet;
+            transition: 0.2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div></div>
+        <div></div>
+    </div>
+    <script>
+        (function () {
+            let range = 50;    //给一个摇晃的幅度，如果用户超过这个值，则认为用户摇了，没超过就认为用户没有摇
+
+            let lastPosition = {
+                x: 0,
+                y: 0,
+                z: 0,
+                time: Date.now()
+            };
+
+            let isShake = false;   //用户是否停止了摇动
+
+            let divs = document.querySelectorAll('.box div');
+            window.addEventListener('devicemotion', e => {
+                let nowTime = Date.now();
+                let motion = e.accelerationIncludingGravity;
+
+                if (nowTime - lastPosition.time > 100) {   //从设备获取数据频率pc一般为16ms，手机端不同但概念相同，人手摇晃速度不可能达到那么快摇一次，所以这里自己设置一个获取数据的时间频率
+                    let nowPosition = {
+                        x: motion.x,
+                        y: motion.y,
+                        z: motion.z,
+
+                    }
+                    //两次摇晃的差值
+                    let dis = Math.abs(nowPosition.x - lastPosition.x) + Math.abs(nowPosition.y - lastPosition.y) + Math.abs(nowPosition.z - lastPosition.z)
+
+                    if (dis > range) {    //摇晃幅度大于设置范围，则表示用户此时在摇晃
+                        isShake = true;
+                        divs[0].style.transform = 'translateY(-50px)';
+                        divs[1].style.transform = 'translateY(50px)';
+
+                    }
+
+
+                    //用户停止摇晃
+                    if (dis < 10 && isShake) {
+                        isShake = false;
+
+                        setTimeout(() => {
+                            divs[0].style.transform = 'translateY(0px)';
+                            divs[1].style.transform = 'translateY(0px)';
+                        }, 600);
+
+                        //播放音乐
+                        const audio=new Audio('./music/5018.mp3');
+                        audio.play();
+
+                    }
+
+                    lastPosition.x = nowPosition.x;
+                    lastPosition.y = nowPosition.y;
+                    lastPosition.z = nowPosition.z;
+                    lastPosition.time = nowTime;
+
+                }
+
+            })
+        })();
+    </script>
+</body>
+
+</html>
