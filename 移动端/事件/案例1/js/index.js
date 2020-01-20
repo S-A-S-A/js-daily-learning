@@ -5,7 +5,7 @@
 		wrap:nav_scroll,
 		dir:'x',
 		backOut:'none',
-		scrollBar:false,
+		scrollBar:false
 	});
 })();
 
