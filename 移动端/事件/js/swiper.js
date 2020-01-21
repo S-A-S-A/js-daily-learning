@@ -307,6 +307,9 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 
 			ev.preventDefault();
 		}
+
+		//在用户拖动的时候也是需要让move方法执行的
+		move&&move.call(wrap,ev)
 		
 		lastPoint.x=curPoint.x;
 		lastPoint.y=curPoint.y;
@@ -315,7 +318,6 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 	});
 
 	wrap.addEventListener('touchend',ev=>{
-		end&&end.call(wrap,ev);
 		isFirstMove=true;
 		isDir={
 			x:false,
@@ -375,6 +377,9 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 				css(bar,{opacity:0});
 			}
 		});
+
+		end&&end.call(wrap,ev);
+
 	});
 }
 
