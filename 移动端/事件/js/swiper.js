@@ -201,9 +201,9 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 	bar.className='scrollBar';	//是为了给外面留一个样式，让用户去设置
 	bar.style.cssText=`position:absolute;
 						background:rgba(0,0,0,0.6);
-						transition:0.2s opacity;
 						border-radius:8px;
-						opacity:0;`;
+						opacity:0;
+						z-index:100`;//避免其他元素盖掉滚动条
 
 	
 	wrap.addEventListener('touchstart',ev=>{
@@ -239,11 +239,11 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 			scale=wrap.clientWidth/scroll.offsetWidth;
 			bar.style.width=scale*wrap.clientWidth+'px';
 			//设备的高/滚动元素的高 = 滑块的高/设备的高	= scale
-			bar.style.cssText+=`left:0;bottom:0;height:5px`;
+			bar.style.cssText+=`left:0;bottom:0;height:3px`;
 		}else{	//纵向的滚动条
 			scale=wrap.clientHeight/scroll.offsetHeight;
 			bar.style.height=scale*wrap.clientHeight+'px';
-			bar.style.cssText+=`right:0;top:0;width:5px`;
+			bar.style.cssText+=`right:0;top:0;width:3px`;
 		}
 	
 		if(scrollBar){	//用户设置要需要滚动条
@@ -299,7 +299,8 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 				}
 			}
 			css(scroll,{['translate'+dir.toUpperCase()]:targetEle[dir]});
-			css(bar,{['translate'+dir.toUpperCase()]:-targetEle[dir]*scale});  //让滑块走起来
+			//透明度是后来加的：在按下的时候已经修改了scale的值，但是那个时候并没有改变滚动条的位置。而滚动条的位置是在move的时候才设置的，这样就会有一个跳的问题。解决方法：在move的时候再让滚动条显示，那跳的过程就看不到了
+			css(bar,{['translate'+dir.toUpperCase()]:-targetEle[dir]*scale,opacity:0.6});  //让滑块走起来
 
 			 //在移动的时候，算出最后一次移动的距离以及移动这段距离所需要的时间
 			lastDistance=curPoint[dir]-lastPoint[dir];  //算出最后一次移动的距离
@@ -344,6 +345,12 @@ const swiper=({wrap,dir='y',start,move,end,over,toTop,toEnd,backOut='back',scrol
 			target=0;
 		}else if(target<minDistance[dir]){
 			target=minDistance[dir];
+		}
+
+		//如果用户拖动后并没有甩，就不需要执行tweenMove，直接执行回调函数
+		if(target==Math.round(css(scroll,'translate'+dir.toUpperCase()))){
+			end&&end.call(wrap,ev);
+			return;
 		}
 
 		tweenMove({
