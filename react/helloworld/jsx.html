@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- 直接在页面上使用react，引用下面的js -->
+    <!-- react的核心库，与宿主环境无关 -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- 依赖核心库，将核心的功能与页面结合 -->
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>  
+    <!-- crossorigin:跨域时报错会显示出详细信息 -->
+    <!-- 编译JSX -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>  
+
+    <script type="text/babel" >
+     //创建一个span元素
+    //  var span=React.createElement('span',{},'来一个span');
+    var span=<span>来一个span</span>
+   //创建一个h1元素
+    // var h1=React.createElement('h1',{
+    //     title:'第一个react元素'
+    // },'hello world','ss',span);
+    var h1=<h1 title="第一个react元素">hello world<span>来一个span</span></h1>
+
+//reactdom:负责把react元素渲染到页面上
+    // ReactDom.render(显示的东西，容器)；
+    ReactDOM.render(h1,document.getElementById('root'))
+    </script>
+</body>
+</html>
